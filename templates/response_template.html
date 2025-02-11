@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+{% autoescape None %}
+<!--<link>-->
+{% block content %}
+<h3>Response</h3>
+<p>Current Response Table</p>
+<div class="alert alert-danger alert-dismissible collapse" role="alert" id="failed">
+    <a href="#" class="close" data-hide="alert" aria-label="close" >&times;</a>
+  <strong>Failed!</strong> The request to the server failed.  Try again.
+</div>
+<div class="alert alert-warning alert-dismissible collapse" role="alert" id="partial">
+    <a href="#" class="close" data-hide="alert" aria-label="close" >&times;</a>
+  <strong>Partial</strong> The request to the server resulted in partial completion.  Please check server logs.
+</div>
+<div class="alert alert-success alert-dismissible collapse" role="alert" id="completed">
+    <a href="#" class="close" data-hide="alert" aria-label="close" >&times;</a>
+  <strong>Sucess</strong> The request to the server completed successfully.
+</div>
+<div class="table" id="tablediv">
+    <table id="response_table"></table>
+</div>
+
+<script type="text/javascript">
+    client.buildResponseTable('{{ response }}');
+</script>
+
+{% end %}
