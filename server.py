@@ -165,11 +165,14 @@ def main():
 
     # webbrowser.open("http://localhost:%d/" % args.port, new=2)
 
-    # Create and start a new thread for the Kafka consumer
-    thread = threading.Thread(target=run_consumer_in_thread)
-    thread.start()
-    # asyncio.run(telemetry.consume())
+    # # Create and start a new thread for the Kafka consumer
+    # thread = threading.Thread(target=run_consumer_in_thread)
+    # thread.start()
 
+    thread = threading.Thread(target=run_traffic_matrix_in_thread)
+    thread.start()
+
+    logging.info("Starting IOLoop for webserver...")
     # tornado.ioloop.IOLoop.instance().start()
     tornado.ioloop.IOLoop.current().start()
 
@@ -182,6 +185,13 @@ def run_consumer_in_thread():
     # Run the consumer in the asyncio event loop
     loop.run_until_complete(telemetry.consume(open_websockets))
 
+def run_traffic_matrix_in_thread():
+    # Create a new asyncio event loop for this thread
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    # Run the consumer in the asyncio event loop
+    loop.run_until_complete(telemetry.traffic_matrix_updater(open_websockets))
 
 def send_message_open_ws(message):
     for ws in open_websockets:

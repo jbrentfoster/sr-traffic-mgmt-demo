@@ -1,0 +1,1 @@
+SELECT "accounting_information/number_of_tx_bytes" FROM "Cisco-IOS-XR-fib-common-oper:cef-accounting/vrfs/vrf/afis/afi/pfx/srv6locs/srv6loc" WHERE "source"='{hostname}' GROUP BY * ORDER BY time DESC LIMIT 1

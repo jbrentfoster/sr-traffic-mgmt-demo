@@ -23,9 +23,16 @@ import python.errors
 import logging
 from tornado import httpclient
 from tornado import httputil
+from urllib.parse import urlencode
 
-async def rest_get_tornado_httpclient(url, user, password):
+async def rest_get_tornado_httpclient(url, user=None, password=None, params=None):
     http_client = httpclient.AsyncHTTPClient()
+
+    # Encode params if provided
+    if params:
+        query_string = urlencode(params)
+        url = f"{url}?{query_string}"
+
     http_request = httpclient.HTTPRequest(url)
     http_request.auth_username = user
     http_request.auth_password = password

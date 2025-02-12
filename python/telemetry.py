@@ -18,6 +18,8 @@ or implied.
 """
 
 import asyncio
+import urllib.parse
+
 from aiokafka import AIOKafkaConsumer
 import json
 import logging
@@ -26,6 +28,9 @@ import threading
 from python import router
 from python import router_interface_monitor
 from python import traffic_matrix
+from python import utils
+from datetime import datetime
+import dateutil
 
 # TODO figure out how to purge stale/non-existent locators from routers
 # Globals
@@ -47,14 +52,42 @@ for router_id, attributes in file_dict.items():
     router_dict[router_id] = tmp_router
 
 
-async def traffic_matrix_updater():
+async def traffic_matrix_updater(websockets):
     global router_dict
     global local_traffic_matrix
     global monitor
+    global websockets_tmp
 
+    websockets_tmp = websockets
+
+    # Define the base URL and parameters
+    influx_url = 'http://10.135.7.105:8086/query'
+    with open('python/query_template.txt', 'r') as file:
+        query = file.read().strip()
+    # query_formatted = query.format(hostname='ncs57c3-37',time='2025-02-11T19:37:24.362Z')
+
+
+    count = 0
     while True:
         logging.info("Traffic matrix updater thread is running...")
         await asyncio.sleep(30)
+        for router, attributes in router_dict.items():
+            query_formatted = query.format(hostname=router)
+            params = {
+                'pretty': 'true',
+                'db': 'telegraf',
+                'q': query_formatted
+            }
+            response = await utils.rest_get_tornado_httpclient(influx_url, params=params)
+            response_dict = json.loads(response)
+            try:
+                for data_point in response_dict['results'][0]['series']:
+                    # logging.info(
+                    #     f"{router}, {data_point['tags']['accounting_information/outgoing_interface']}, {data_point['tags']['ipv6_address']}, time-stamp: {data_point['values'][0][0]} bytes: {data_point['values'][0][1]}")
+                    process_influx_locator(data_point)
+            except Exception as err:
+                logging.info(f"Could not get data-point for {router}")
+
         local_traffic_matrix = traffic_matrix.TrafficMatrix()
         for locator_addr in monitor.get_unique_locator_addrs():
             update_traffic_matrix(locator_addr)
@@ -62,6 +95,12 @@ async def traffic_matrix_updater():
             ws.send_message(json.dumps(local_traffic_matrix.get_traffic_entries(), indent=2, sort_keys=True))
         with open('jsongets/traffic_matrix.json', 'w') as file:
             json.dump(local_traffic_matrix.get_traffic_entries(), file, indent=4)
+        for router, attributes in router_dict.items():
+            attributes.del_intf_locator()
+        count += 1
+        # if count % 10 == 0:
+        #     logging.info("Purging outdated entries in traffic monitor...")
+        #     monitor.remove_outdated_entries(300)
 
 
 def run_in_thread():
@@ -114,38 +153,77 @@ def process_telemetry_msg_locator(msg):
                 output_bytes = msg['fields']['accounting_information/number_of_tx_bytes']
                 locator_addr = msg['tags']['ipv6_address']
                 time_stamp = msg['timestamp']
-                # if output_bytes > 0:
                 msg_text = f"Kafka message: {msg['tags']['source']} {locator_addr} {if_name} output bytes: {output_bytes}"
                 # logging.info(msg_text)
                 monitor.update_data(router_id, if_name, locator_addr, output_bytes, time_stamp)
                 entries = monitor.get_entries_by_router_id(router_id)
                 for entry in entries:
                     router_dict[router_id].add_intf_locator(entry['interface_id'], entry['locator_addr'],
-                                                            entry['moving_average_gbps'])
-                # update_traffic_matrix(locator_addr)
-                pass
+                                                            entry['moving_average_gbps'], entry['time_stamp'])
             except Exception as err:
                 pass
     except Exception as err:
         pass
         logging.info("Invalid message from kafka.")
 
+def process_influx_locator(data):
+    telemetry_encoding_path = "Cisco-IOS-XR-fib-common-oper:cef-accounting/vrfs/vrf/afis/afi/pfx/srv6locs/srv6loc"
+    try:
+        # logging.info("Kafka message is from " + msg['tags']['source'] + "...")
+        if data["name"] == telemetry_encoding_path and "tags" in data:
+            try:
+                router_id = data['tags']['source']
+                if_name = data['tags']['accounting_information/outgoing_interface']
+                output_bytes = data['values'][0][1]
+                locator_addr = data['tags']['ipv6_address']
+                time_stamp = rfc3339_to_epoch(data['values'][0][0])
+                msg_text = f"Kafka message: {router_id} {locator_addr} {if_name} output bytes: {output_bytes}"
+                # logging.info(msg_text)
+                monitor.update_data(router_id, if_name, locator_addr, output_bytes, time_stamp)
+                entries = monitor.get_entries_by_router_id(router_id)
+                for entry in entries:
+                    router_dict[router_id].add_intf_locator(entry['interface_id'], entry['locator_addr'],
+                                                            entry['moving_average_gbps'], entry['time_stamp'])
+            except Exception as err:
+                logging.info(f"Exception processing influx data for {router}")
+                pass
+    except Exception as err:
+        pass
+        logging.info("Invalid message from kafka.")
 
 def update_traffic_matrix(locator_addr):
     for router_id, router in router_dict.items():
         router_total = router.sum_locators_for_address(locator_addr)
+        router_time_stamp = router.get_latest_time_stamp()
+
         if router_total > 0:
             neighbors_total = 0
             # find all neighbors with locator and get traffic rate
             for neighbor in router.neighbors:
-                neighbors_total += router_dict[neighbor['neighbor_id']].get_intf_locator(neighbor['remote_intf_name'],
-                                                                                         locator_addr)
+                neighbor_total = router_dict[neighbor['neighbor_id']].get_intf_locator(neighbor['remote_intf_name'],
+                                                                                         locator_addr)[0]
+                # neighbor_time_stamp = router_dict[neighbor['neighbor_id']].get_intf_locator(neighbor['remote_intf_name'],
+                #                                                                          locator_addr)[1]
+                # time_delta = abs(router_time_stamp - neighbor_time_stamp)
+                # if  time_delta < 60:
+                neighbors_total += neighbor_total
+                # else:
+                #     logging.info(f"Router {router_id}, Neighbor: {neighbor['neighbor_id']} locator: {locator_addr} timestamps difference of {time_delta}.")
             external_traffic = router_total - neighbors_total
             if external_traffic > 500:  # Ignore anything less than 500 Mbps
                 logging.info(f"Router {router_id} is the source of {external_traffic} Gbps to locator {locator_addr}.")
                 dest_router_id = get_router_id_from_locator(locator_addr)
                 local_traffic_matrix.add_traffic_entry(router_id, dest_router_id, locator_addr, external_traffic)
 
+
+def rfc3339_to_epoch(rfc3339_string):
+    # Parse the RFC 3339 date-time string into a datetime object
+    dt = dateutil.parser.isoparse(rfc3339_string)
+
+    # Convert the datetime object to epoch time (Unix timestamp)
+    epoch_time = int(dt.timestamp())
+
+    return epoch_time
 
 def nested_keys_exist(nested_dict, keys):
     """

@@ -29,6 +29,7 @@ class Router:
         self.locator = locator  # New attribute
         self.locator_intf = {}
         self.neighbors = []
+        self.latest_time_stamp = None
 
     def set_locator(self, locator):
         """
@@ -38,6 +39,9 @@ class Router:
         """
         self.locator = locator
 
+    def get_latest_time_stamp(self):
+        return self.latest_time_stamp
+
     def get_locator(self):
         """
         Get the locator information for the router.
@@ -46,7 +50,7 @@ class Router:
         """
         return self.locator
 
-    def add_intf_locator(self, intf_name, locator_addr, moving_average_gbps):
+    def add_intf_locator(self, intf_name, locator_addr, moving_average_gbps, time_stamp):
         """
         Add a locator with its moving average in Gbps to the locator list.
         If the locator already exists, update its moving average.
@@ -56,18 +60,20 @@ class Router:
         """
 
         try:
-            self.locator_intf[intf_name][locator_addr] = moving_average_gbps
-            # logging.info(f"Did not have create new entry for {self.router_id}, {intf_name}.  Adding new locator {locator_addr}")
+            self.locator_intf[intf_name][locator_addr] = {'rate': moving_average_gbps, 'time_stamp': time_stamp}
+            self.latest_time_stamp = time_stamp
+            # logging.info(f"Did not have create new entry for {self.router_id}, {intf_name}.)
         except KeyError:
-            self.locator_intf[intf_name] = {locator_addr: moving_average_gbps}
+            self.locator_intf[intf_name] = {locator_addr: {'rate': moving_average_gbps, 'time_stamp': time_stamp}}
+            self.latest_time_stamp = time_stamp
             # logging.info(
             # f"Created new entry for {self.router_id}, {intf_name}.  Adding new locator {locator_addr}")
 
     def get_intf_locator(self, intf_name, locator_addr):
         try:
-            return self.locator_intf[intf_name][locator_addr]
+            return self.locator_intf[intf_name][locator_addr]['rate'], self.locator_intf[intf_name][locator_addr]['time_stamp']
         except KeyError:
-            return 0
+            return 0,0
 
     def sum_locators_for_address(self, locator_addr):
         """
@@ -79,7 +85,7 @@ class Router:
         total = 0
         for intf in self.locator_intf.values():
             if locator_addr in intf:
-                total += intf[locator_addr]
+                total += intf[locator_addr]['rate']
         return total
 
     def add_neighbor(self, neighbor_id, remote_intf_name):
@@ -94,3 +100,9 @@ class Router:
             'remote_intf_name': remote_intf_name,
         }
         self.neighbors.append(neighbor_entry)
+
+    def del_intf_locator(self):
+        """
+        Reset the 'locator_intf' dictionary.
+        """
+        self.locator_intf = {}
