@@ -60,7 +60,13 @@ var client = {
 
         this.socket.onmessage = function (messageEvent) {
             console.log("Got a message...");
-            client.buildTrafficMatrixTable(messageEvent.data)
+            var data_json = JSON.parse($().cleanJSON(messageEvent.data));
+            if (data_json.target === 'interface') {
+                client.buildInterfaceTable(data_json.data);
+            }
+            else if (data_json.target === 'traffic') {
+                client.buildTrafficMatrixTable(data_json.data);
+            }
             console.log(messageEvent.data);
         };
         return this.socket;
@@ -87,23 +93,73 @@ var client = {
     },
 
     buildTrafficMatrixTable: function (traffic_data) {
-        var traffic_data_json = JSON.parse($().cleanJSON(traffic_data));
         const tbody = document.querySelector("#traffic-table tbody");
         tbody.innerHTML = ""; // Clear existing rows
 
         // Sort the data by the first column (source_router)
-        traffic_data_json.sort((a, b) => {
+        traffic_data.sort((a, b) => {
             if (a.source_router < b.source_router) return -1;
             if (a.source_router > b.source_router) return 1;
             return 0;
         });
 
-        traffic_data_json.forEach(row => {
+        traffic_data.forEach(row => {
             const tr = document.createElement("tr");
             tr.innerHTML = `<td>${row.source_router}</td><td>${row.dest_router}</td><td>${row.locator_addr}</td><td>${row.traffic_rate}</td>`;
             tbody.appendChild(tr);
         });
 
+        // Update the timestamp
+        const updateTimeElement = document.getElementById("update-time");
+        const now = new Date();
+        updateTimeElement.textContent = `Last updated: ${now.toLocaleString()}`;
+    },
+
+    buildInterfaceTable: function (interface_data) {
+        const container = document.querySelector("#tables-container");
+        container.innerHTML = "";
+
+        for (const router in interface_data) {
+            if (interface_data.hasOwnProperty(router)) {
+                const table = document.createElement("table");
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th colspan="4">Router: ${router}</th>
+                        </tr>
+                        <tr>
+                            <th>Interface</th>
+                            <th>Capacity</th>
+                            <th>Traffic</th>
+                            <th>Utilization</th>
+                            <th>Worst Case Traffic</th>
+                            <th>Worst Case Utilization</th>
+                            <th>Failure Scenario</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                `;
+                const tableBody = table.querySelector("tbody");
+
+                let sortedEntries = Object.entries(interface_data[router]).sort((a, b) => b[1]["worst-case-util"] - a[1]["worst-case-util"]);
+
+                for (const [interface, entry] of sortedEntries) {
+                    const row = `<tr>
+                        <td>${interface}</td>
+                        <td>${entry["capacity"]}</td>
+                        <td>${entry["traffic"]}</td>
+                        <td>${entry["util"]}%</td>
+                        <td>${entry["worst-case-traffic"]}</td>
+                        <td style="color: ${entry["worst-case-util"] > 70 ? 'red' : 'black'}; font-weight: ${entry["worst-case-util"] > 70 ? 'bold' : 'normal'}">${entry["worst-case-util"]}%</td>
+                        <td>${entry["failure-scenario"]}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                }
+                container.appendChild(table);
+                container.appendChild(document.createElement("br"));
+            }
+        }
         // Update the timestamp
         const updateTimeElement = document.getElementById("update-time");
         const now = new Date();

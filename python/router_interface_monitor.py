@@ -28,16 +28,17 @@ class RouterInterfaceMonitor:
         # Attribute to store the latest time stamp
         self.latest_time_stamp = None
 
-    # def get_moving_average_gps(self, router_id, interface_id, locator_addr):
-    #     # Retrieve the moving average gps for a specific router interface and locator address
-    #     key = (router_id, interface_id, locator_addr)
-    #     if key in self.data_store:
-    #         return self.data_store[key]['moving_average_gps']
-    #     else:
-    #         return None
+    def get_moving_average_gps(self, router_id, interface_id, locator_addr):
+        # Retrieve the moving average gps for a specific router interface and locator address
+        key = (router_id, interface_id, locator_addr)
+        if key in self.data_store:
+            return self.data_store[key]['moving_average_gps']
+        else:
+            return None
 
     # TODO Figure out how to use the time_stamp
     def update_data(self, router_id, interface_id, locator_addr, new_byte_count, time_stamp):
+        good_data = True
         # Ensure the router_id entry exists
         if router_id not in self.data_store:
             self.data_store[router_id] = {}
@@ -66,11 +67,7 @@ class RouterInterfaceMonitor:
             logging.info(
                 f"Bad data-point: {router_id}, {interface_id}, {locator_addr}, Byte count: {new_byte_count}, Time stamp: {time_stamp}, Previous byte count: {interface_data['data_points'][-1]}")
             interface_data['data_points'].clear()
-            # del self.data_store[router_id][interface_id][locator_addr]
-            # self.data_store[router_id][interface_id][locator_addr] = {
-            #     'data_points': deque(maxlen=5),  # FIFO queue with a max size of 5
-            #     'moving_average_gbps': 0,
-            #     'time_stamp': time_stamp}
+            good_data = False
 
         interface_data['data_points'].append((time_stamp, new_byte_count))
 
@@ -94,22 +91,23 @@ class RouterInterfaceMonitor:
         #     f"Router: {router_id} Interface: {interface_id}, Locator: {locator_addr}  Moving Average: {interface_data['moving_average_gbps']} Gbps")
         # Remove outdated entries older than 150 seconds
         # self._remove_outdated_entries(150)
+        return good_data, interface_data['moving_average_gbps']
 
     #TODO this does not work to purge out-dated entries, need to debug
-    # def _remove_outdated_entries(self, time_delta):
-    #     # Iterate through the data_store and remove entries with time_stamp older than the threshold
-    #     if self.latest_time_stamp is not None:
-    #         for router_id in list(self.data_store.keys()):
-    #             for interface_id in list(self.data_store[router_id].keys()):
-    #                 for locator_addr in list(self.data_store[router_id][interface_id].keys()):
-    #                     interface_data = self.data_store[router_id][interface_id][locator_addr]
-    #                     if interface_data['data_points'] and (
-    #                             self.latest_time_stamp - interface_data['data_points'][-1][0] > time_delta):
-    #                         del self.data_store[router_id][interface_id][locator_addr]
-    #                 if not self.data_store[router_id][interface_id]:
-    #                     del self.data_store[router_id][interface_id]
-    #             if not self.data_store[router_id]:
-    #                 del self.data_store[router_id]
+    def remove_outdated_entries(self, time_delta):
+        # Iterate through the data_store and remove entries with time_stamp older than the threshold
+        if self.latest_time_stamp is not None:
+            for router_id in list(self.data_store.keys()):
+                for interface_id in list(self.data_store[router_id].keys()):
+                    for locator_addr in list(self.data_store[router_id][interface_id].keys()):
+                        interface_data = self.data_store[router_id][interface_id][locator_addr]
+                        if interface_data['data_points'] and (
+                                self.latest_time_stamp - interface_data['data_points'][-1][0] > time_delta):
+                            del self.data_store[router_id][interface_id][locator_addr]
+                    if not self.data_store[router_id][interface_id]:
+                        del self.data_store[router_id][interface_id]
+                if not self.data_store[router_id]:
+                    del self.data_store[router_id]
 
     def get_unique_locator_addrs(self):
         # Set to store unique locator addresses

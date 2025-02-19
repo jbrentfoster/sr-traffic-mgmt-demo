@@ -1,0 +1,37 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1>Interface Monitor</h1>
+<p>Table will dynamically update based on server periodic telemetry message processing.</p>
+<div class="alert alert-danger alert-dismissible collapse" role="alert" id="failed">
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Failed!</strong> The request to the server failed. Try again.
+</div>
+<div class="alert alert-success alert-dismissible collapse" role="alert" id="completed">
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Sucess</strong> The request to the server completed successfully.
+</div>
+<h5>Interface Table</h5>
+<p id="update-time">Last updated: Never</p>
+<!--<div class="table" id="tablediv">-->
+<!--    <table id="interface-table">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>Router</th>-->
+<!--                <th>Interface</th>-->
+<!--                <th>Traffic</th>-->
+<!--                <th>Worst Case Traffic</th>-->
+<!--                <th>Failure Scenario</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--            &lt;!&ndash; Dynamic content will be inserted here &ndash;&gt;-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+<div id="tables-container"></div>
+<script type="text/javascript">
+    client.connect({{port}});
+</script>
+{% end %}
+
+

@@ -48,8 +48,11 @@ telemetry_encoding_path = "Cisco-IOS-XR-pfi-im-cmd-oper:interfaces/interface-xr/
 
 class IndexHandler(tornado.web.RequestHandler):
     async def get(self):
-        await self.render("templates/index.html", port=args.port, initial_url=initial_url)
-        # await telemetry.consume()
+        await self.render("templates/index.html", port=args.port)
+
+class InterfaceHandler(tornado.web.RequestHandler):
+    async def get(self):
+        await self.render("templates/interfaces.html", port=args.port)
 
 
 class AjaxHandler(tornado.web.RequestHandler):
@@ -155,7 +158,7 @@ def main():
                 url(r'/static/(.*)',
                     tornado.web.StaticFileHandler,
                     dict(path=settings['static_path'])),
-                # url(r'/response', ResponseHandler, name="response"),
+                url(r'/interfaces', InterfaceHandler, name="interfaces"),
                 # url(r'/references', ReferencesHandler, name="references"),
                 url(r'/ajax', AjaxHandler, name="ajax")
                 ]

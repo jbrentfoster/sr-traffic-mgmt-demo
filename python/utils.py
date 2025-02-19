@@ -25,12 +25,12 @@ from tornado import httpclient
 from tornado import httputil
 from urllib.parse import urlencode
 
-async def rest_get_tornado_httpclient(url, user=None, password=None, params=None):
+async def rest_get_tornado_httpclient(url, user=None, password=None, data=None):
     http_client = httpclient.AsyncHTTPClient()
 
     # Encode params if provided
-    if params:
-        query_string = urlencode(params)
+    if data:
+        query_string = urlencode(data)
         url = f"{url}?{query_string}"
 
     http_request = httpclient.HTTPRequest(url)
@@ -44,10 +44,36 @@ async def rest_get_tornado_httpclient(url, user=None, password=None, params=None
         if response.code == 200:
             return response_string
         else:
-            error_message = "Failed HTTP response...code: " + response.code
+            error_message = "Failed HTTP response...code: " + str(response.code)
             return error_message
     except Exception as err:
         error_message = "Error: %s" % err
+        logging.error(error_message)
+        return error_message
+
+
+async def rest_post_tornado_httpclient(url, user=None, password=None, data=None):
+    http_client = httpclient.AsyncHTTPClient()
+
+    http_request = httpclient.HTTPRequest(
+        url=url,
+        method="POST",
+        body=data,
+        # auth_username=user,
+        # auth_password=password,
+        headers=httputil.HTTPHeaders({"content-type": "application/json", "accept": "application/json"})
+    )
+
+    try:
+        response = await http_client.fetch(http_request)
+        response_string = response.body.decode('utf-8')
+        if response.code in [200, 201, 204]:
+            return response_string
+        else:
+            error_message = f"Failed HTTP response...code: {response.code}"
+            return error_message
+    except Exception as err:
+        error_message = f"Error: {err}"
         logging.error(error_message)
         return error_message
 

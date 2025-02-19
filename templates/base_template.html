@@ -14,7 +14,7 @@
     <link href="static/css/pagestyle.css" rel="stylesheet">
 
 
-    <title>Generic Client</title>
+    <title>Cisco SRv6 Traffic Management</title>
     <link rel="icon" href="static/templates/favicon.ico">
 
     <!--jQuery-->
@@ -38,7 +38,10 @@
             <hr>
             <h5>Navigation</h5>
             <ul class="sidebar-nav">
-                <li><a href={{ reverse_url('home') }} id="home_link">Home</a></li>
+                <li><a href={{ reverse_url('home') }} id="home_link">Traffic Matrix</a></li>
+            </ul>
+            <ul class="sidebar-nav">
+                <li><a href={{ reverse_url('interfaces') }} id="interfaces_link">Interfaces</a></li>
             </ul>
         </div>
         <div class="col-sm-10 ">
