@@ -1,0 +1,545 @@
+INFO:  Starting webserver...
+INFO:  Current time is: 2025-02-20-1347-30
+INFO:  Starting IOLoop for webserver...
+INFO:  Traffic matrix updater thread is running...
+INFO:  304 GET /interfaces (192.168.100.55) 5.98ms
+INFO:  101 GET /websocket (192.168.100.55) 0.96ms
+INFO:  WebSocket opened
+INFO:  304 GET / (192.168.100.55) 2.17ms
+INFO:  101 GET /websocket (192.168.100.55) 0.43ms
+INFO:  WebSocket opened
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:13:94::, Byte count: 36722081487961, Time stamp: 1740059315, Previous byte count: (1740058895, 92098969617343)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 3
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: 8808-Site4-94, FourHundredGigE0/0/0/6, fcff:13:37::, Byte count: 422063637, Time stamp: 1740059443, Previous byte count: (1740059323, 2320566939)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/3/0.2082, fcff:1c:180::, Byte count: 1957732068235, Time stamp: 1740059465, Previous byte count: (1740059405, 1635682548271209)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: 8808-Site4-94, FourHundredGigE0/0/0/6, fcff:13:37::, Byte count: 0, Time stamp: 1740059533, Previous byte count: (1740059443, 422063637)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:1c:180::, Byte count: 36722081487961, Time stamp: 1740059555, Previous byte count: (1740059435, 92098969617343)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 3
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 4
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10148 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20065 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40138 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10036 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10034 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:1c:180::, Byte count: 28408464509126, Time stamp: 1740059705, Previous byte count: (1740059555, 36722081487961)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 3
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 4
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10149 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20060 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40128 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10030 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4131 Gbps to locator fcff:13:47::.
+INFO:  Router 8808-Site4-94 is the source of 908 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10031 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 5
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10150 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20075 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40158 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10037 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4131 Gbps to locator fcff:13:47::.
+INFO:  Router 8808-Site4-94 is the source of 691 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10034 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 6
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10144 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20070 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40141 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10038 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4131 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10032 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 7
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20060 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40128 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10033 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20079 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10034 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 8
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10142 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40135 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10037 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4128 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10039 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 9
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10137 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20057 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40108 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10032 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4128 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10035 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 10
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10141 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20059 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40118 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10029 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4128 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10037 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 11
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10146 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20069 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40138 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10034 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10039 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 12
+INFO:  Router ncs57c3-37 is the source of 40147 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20065 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40131 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10026 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20073 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10035 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Purging outdated entries in traffic monitor...
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 13
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10149 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40135 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10030 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20069 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10040 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 14
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10148 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20065 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40131 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10029 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10039 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 15
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10140 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20062 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40125 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10034 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20073 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10036 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 16
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10146 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20062 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40125 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10034 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10037 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  WebSocket closed!
+INFO:  101 GET /websocket (192.168.100.55) 0.42ms
+INFO:  WebSocket opened
+INFO:  304 GET / (192.168.100.55) 1.00ms
+INFO:  WebSocket closed!
+INFO:  101 GET /websocket (192.168.100.55) 0.69ms
+INFO:  WebSocket opened
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 17
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10143 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20062 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40125 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10031 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20079 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10036 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 18
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20060 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40135 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10033 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20071 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10039 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:13:94::, Byte count: 8008533958257, Time stamp: 1740060305, Previous byte count: (1740059705, 28744300838569)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 3
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 4
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10149 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40135 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10030 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router 8808-Site4-94 is the source of 547 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10036 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: 8808-Site4-94, FourHundredGigE0/0/0/6, fcff:13:37::, Byte count: 0, Time stamp: 1740060463, Previous byte count: (1740060313, 7307090709)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:1c:180::, Byte count: 28744300838569, Time stamp: 1740060485, Previous byte count: (1740060305, 80577651787979)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Bad data-point: ncs57c3-37, HundredGigE0/0/2/0.1081, fcff:1c:180::, Byte count: 8008533958257, Time stamp: 1740060575, Previous byte count: (1740060485, 28744300838569)
+INFO:  Bad data detected, will not process traffic matrix.
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 1
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 2
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 3
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 4
+INFO:  Router ncs57c3-37 is the source of 40142 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10150 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20062 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40131 Gbps to locator fcff:10:37::.
+INFO:  Router 8201-Site1-81 is the source of 526 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-47 is the source of 10031 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20071 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4658 Gbps to locator fcff:13:47::.
+INFO:  Router 8808-Site4-94 is the source of 1038 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10041 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 5
+INFO:  Router ncs57c3-37 is the source of 40156 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40135 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10033 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20074 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4526 Gbps to locator fcff:13:47::.
+INFO:  Router 8808-Site4-94 is the source of 788 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10039 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 6
+INFO:  Router ncs57c3-37 is the source of 40149 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20065 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40138 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10032 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20071 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10035 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Purging outdated entries in traffic monitor...
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 7
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10144 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20069 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40134 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10032 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20073 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10036 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 8
+INFO:  Router ncs57c3-37 is the source of 40153 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10144 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20069 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40134 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10032 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10032 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 9
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40129 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10033 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20069 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10038 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 10
+INFO:  Router ncs57c3-37 is the source of 40143 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10145 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20067 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40129 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10033 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20081 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10037 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 11
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10140 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20064 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40128 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10035 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4130 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10038 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...
+INFO:  Could not get data for xrvM5-vRR-03
+INFO:  Could not get data for ncs540-50-arches
+INFO:  Good collection cycles completed: 12
+INFO:  Router ncs57c3-37 is the source of 40146 Gbps to locator fcff:10:47::.
+INFO:  Router ncs57c3-47 is the source of 10146 Gbps to locator fcff:1c:80::.
+INFO:  Router ncs57c3-47 is the source of 20062 Gbps to locator fcff:12:37::.
+INFO:  Router ncs57c3-47 is the source of 40131 Gbps to locator fcff:10:37::.
+INFO:  Router ncs57c3-47 is the source of 10034 Gbps to locator fcff:13:37::.
+INFO:  Router ncs57c3-37 is the source of 20076 Gbps to locator fcff:12:47::.
+INFO:  Router 8201-Site1-81 is the source of 4129 Gbps to locator fcff:13:47::.
+INFO:  Router ncs57c3-37 is the source of 10040 Gbps to locator fcff:13:47::.
+INFO:  Running simulation analysis with Crosswork Planning...
+INFO:  Simulation analysis completed.
+INFO:  Serialized plan file to bytes.
+INFO:  Traffic matrix updater thread is running...

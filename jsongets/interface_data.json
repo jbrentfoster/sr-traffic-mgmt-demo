@@ -1,0 +1,194 @@
+{
+    "8201-Site1-81": {
+        "FourHundredGigE0/0/0/16": {
+            "worst-case-traffic": 32161,
+            "worst-case-util": 8.0,
+            "failure-scenario": "ct{8201-Site1-81|HundredGigE0/0/0/20.1081|ncs57c3-37|HundredGigE0/0/2/0.1081}",
+            "traffic": 2064,
+            "capacity": 400000,
+            "util": 0.5
+        },
+        "FourHundredGigE0/0/0/31": {
+            "worst-case-traffic": 9149,
+            "worst-case-util": 2.3,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 2064,
+            "capacity": 400000,
+            "util": 0.5
+        },
+        "FourHundredGigE0/0/0/6": {
+            "worst-case-traffic": 74391,
+            "worst-case-util": 18.6,
+            "failure-scenario": "ct{8808-Site4-84|FourHundredGigE0/0/0/31|8808-Site4-94|FourHundredGigE0/0/0/31}",
+            "traffic": 60222,
+            "capacity": 400000,
+            "util": 15.1
+        },
+        "HundredGigE0/0/0/20.1081": {
+            "worst-case-traffic": 70227,
+            "worst-case-util": 70.2,
+            "failure-scenario": "ct{8808-Site2-82|HundredGigE0/0/0/2.2082|ncs57c3-37|HundredGigE0/0/3/0.2082}",
+            "traffic": 60193,
+            "capacity": 100000,
+            "util": 60.2
+        },
+        "{to_xrvM5-vRR-03}": {
+            "worst-case-traffic": 0,
+            "worst-case-util": 0.0,
+            "failure-scenario": "none",
+            "traffic": 0,
+            "capacity": 10000,
+            "util": 0.0
+        }
+    },
+    "8808-Site2-82": {
+        "FourHundredGigE0/7/0/0/1": {
+            "worst-case-traffic": 35184,
+            "worst-case-util": 8.8,
+            "failure-scenario": "ct{8201-Site1-81|HundredGigE0/0/0/20.1081|ncs57c3-37|HundredGigE0/0/2/0.1081}",
+            "traffic": 5073,
+            "capacity": 400000,
+            "util": 1.3
+        },
+        "FourHundredGigE0/7/0/2/1": {
+            "worst-case-traffic": 5020,
+            "worst-case-util": 1.3,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 0,
+            "capacity": 400000,
+            "util": 0.0
+        },
+        "FourHundredGigE0/7/0/6/1": {
+            "worst-case-traffic": 72326,
+            "worst-case-util": 18.1,
+            "failure-scenario": "ct{8201-Site1-81|FourHundredGigE0/0/0/6|8808-Site4-84|FourHundredGigE0/0/0/6}",
+            "traffic": 12104,
+            "capacity": 400000,
+            "util": 3.0
+        },
+        "HundredGigE0/0/0/2.2082": {
+            "worst-case-traffic": 70227,
+            "worst-case-util": 70.2,
+            "failure-scenario": "ct{8201-Site1-81|HundredGigE0/0/0/20.1081|ncs57c3-37|HundredGigE0/0/2/0.1081}",
+            "traffic": 10034,
+            "capacity": 100000,
+            "util": 10.0
+        }
+    },
+    "8201-Site1-91": {
+        "FourHundredGigE0/0/0/31": {
+            "worst-case-traffic": 15163,
+            "worst-case-util": 3.8,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 5073,
+            "capacity": 400000,
+            "util": 1.3
+        },
+        "FourHundredGigE0/0/0/16": {
+            "worst-case-traffic": 5017,
+            "worst-case-util": 1.3,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 0,
+            "capacity": 400000,
+            "util": 0.0
+        },
+        "FourHundredGigE0/0/0/6": {
+            "worst-case-traffic": 14169,
+            "worst-case-util": 3.5,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 2064,
+            "capacity": 400000,
+            "util": 0.5
+        }
+    },
+    "8808-Site4-84": {
+        "FourHundredGigE0/0/0/6": {
+            "worst-case-traffic": 80373,
+            "worst-case-util": 20.1,
+            "failure-scenario": "ct{8808-Site4-84|FourHundredGigE0/0/0/31|8808-Site4-94|FourHundredGigE0/0/0/31}",
+            "traffic": 60193,
+            "capacity": 400000,
+            "util": 15.0
+        },
+        "FourHundredGigE0/0/0/26": {
+            "worst-case-traffic": 74391,
+            "worst-case-util": 18.6,
+            "failure-scenario": "none",
+            "traffic": 74391,
+            "capacity": 400000,
+            "util": 18.6
+        },
+        "FourHundredGigE0/0/0/31": {
+            "worst-case-traffic": 80373,
+            "worst-case-util": 20.1,
+            "failure-scenario": "ct{8201-Site1-81|FourHundredGigE0/0/0/6|8808-Site4-84|FourHundredGigE0/0/0/6}",
+            "traffic": 20180,
+            "capacity": 400000,
+            "util": 5.0
+        }
+    },
+    "ncs57c3-37": {
+        "HundredGigE0/0/2/0.1081": {
+            "worst-case-traffic": 70262,
+            "worst-case-util": 70.3,
+            "failure-scenario": "ct{8808-Site2-82|HundredGigE0/0/0/2.2082|ncs57c3-37|HundredGigE0/0/3/0.2082}",
+            "traffic": 60222,
+            "capacity": 100000,
+            "util": 60.2
+        },
+        "HundredGigE0/0/3/0.2082": {
+            "worst-case-traffic": 70262,
+            "worst-case-util": 70.3,
+            "failure-scenario": "ct{8201-Site1-81|HundredGigE0/0/0/20.1081|ncs57c3-37|HundredGigE0/0/2/0.1081}",
+            "traffic": 10040,
+            "capacity": 100000,
+            "util": 10.0
+        }
+    },
+    "xrvM5-vRR-03": {
+        "{to_8201-Site1-81}": {
+            "worst-case-traffic": 0,
+            "worst-case-util": 0.0,
+            "failure-scenario": "none",
+            "traffic": 0,
+            "capacity": 10000,
+            "util": 0.0
+        }
+    },
+    "8808-Site4-94": {
+        "FourHundredGigE0/0/0/6": {
+            "worst-case-traffic": 20180,
+            "worst-case-util": 5.0,
+            "failure-scenario": "ct{8808-Site2-82|FourHundredGigE0/7/0/6/1|8808-Site4-94|FourHundredGigE0/0/0/16}",
+            "traffic": 5073,
+            "capacity": 400000,
+            "util": 1.3
+        },
+        "FourHundredGigE0/0/0/16": {
+            "worst-case-traffic": 75300,
+            "worst-case-util": 18.8,
+            "failure-scenario": "ct{8201-Site1-81|FourHundredGigE0/0/0/6|8808-Site4-84|FourHundredGigE0/0/0/6}",
+            "traffic": 15107,
+            "capacity": 400000,
+            "util": 3.8
+        },
+        "FourHundredGigE0/0/0/31": {
+            "worst-case-traffic": 74391,
+            "worst-case-util": 18.6,
+            "failure-scenario": "ct{8201-Site1-81|FourHundredGigE0/0/0/6|8808-Site4-84|FourHundredGigE0/0/0/6}",
+            "traffic": 14169,
+            "capacity": 400000,
+            "util": 3.5
+        }
+    },
+    "ncs57c3-47": {
+        "FourHundredGigE0/0/2/2": {
+            "worst-case-traffic": 80373,
+            "worst-case-util": 20.1,
+            "failure-scenario": "none",
+            "traffic": 80373,
+            "capacity": 400000,
+            "util": 20.1
+        }
+    }
+}

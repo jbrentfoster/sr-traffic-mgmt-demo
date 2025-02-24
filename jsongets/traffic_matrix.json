@@ -1,0 +1,50 @@
+[
+    {
+        "source_router": "ncs57c3-37",
+        "dest_router": "ncs57c3-47",
+        "locator_addr": "fcff:10:47::",
+        "traffic_rate": 40146
+    },
+    {
+        "source_router": "ncs57c3-47",
+        "dest_router": "ncs540-50-arches",
+        "locator_addr": "fcff:1c:80::",
+        "traffic_rate": 10146
+    },
+    {
+        "source_router": "ncs57c3-47",
+        "dest_router": "ncs57c3-37",
+        "locator_addr": "fcff:12:37::",
+        "traffic_rate": 20062
+    },
+    {
+        "source_router": "ncs57c3-47",
+        "dest_router": "ncs57c3-37",
+        "locator_addr": "fcff:10:37::",
+        "traffic_rate": 40131
+    },
+    {
+        "source_router": "ncs57c3-47",
+        "dest_router": "ncs57c3-37",
+        "locator_addr": "fcff:13:37::",
+        "traffic_rate": 10034
+    },
+    {
+        "source_router": "ncs57c3-37",
+        "dest_router": "ncs57c3-47",
+        "locator_addr": "fcff:12:47::",
+        "traffic_rate": 20076
+    },
+    {
+        "source_router": "8201-Site1-81",
+        "dest_router": "ncs57c3-47",
+        "locator_addr": "fcff:13:47::",
+        "traffic_rate": 4129
+    },
+    {
+        "source_router": "ncs57c3-37",
+        "dest_router": "ncs57c3-47",
+        "locator_addr": "fcff:13:47::",
+        "traffic_rate": 10040
+    }
+]
