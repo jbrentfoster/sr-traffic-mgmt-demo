@@ -1,4 +1,4 @@
 *.pyc
 .idea/
-jsongets/
-logs/
+jsongets/*.json
+logs/collection.log
