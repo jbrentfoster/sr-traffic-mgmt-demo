@@ -130,7 +130,7 @@ def main():
     except Exception as err:
         logging.info("No log file to delete...")
 
-    log_formatter = logging.Formatter('%(levelname)s:  %(message)s')
+    log_formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
     root_logger: Logger = logging.getLogger()
     root_logger.level = eval('logging.{}'.format(logging_level))
 

@@ -50,7 +50,7 @@ class Router:
         """
         return self.locator
 
-    def add_intf_locator(self, intf_name, locator_addr, moving_average_gbps, time_stamp):
+    def add_intf_locator(self, intf_name, locator_addr, moving_average, time_stamp):
         """
         Add a locator with its moving average in Gbps to the locator list.
         If the locator already exists, update its moving average.
@@ -60,11 +60,11 @@ class Router:
         """
 
         try:
-            self.locator_intf[intf_name][locator_addr] = {'rate': moving_average_gbps, 'time_stamp': time_stamp}
+            self.locator_intf[intf_name][locator_addr] = {'rate': moving_average, 'time_stamp': time_stamp}
             self.latest_time_stamp = time_stamp
             # logging.info(f"Did not have create new entry for {self.router_id}, {intf_name}.)
         except KeyError:
-            self.locator_intf[intf_name] = {locator_addr: {'rate': moving_average_gbps, 'time_stamp': time_stamp}}
+            self.locator_intf[intf_name] = {locator_addr: {'rate': moving_average, 'time_stamp': time_stamp}}
             self.latest_time_stamp = time_stamp
             # logging.info(
             # f"Created new entry for {self.router_id}, {intf_name}.  Adding new locator {locator_addr}")

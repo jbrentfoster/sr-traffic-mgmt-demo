@@ -28,15 +28,15 @@ class RouterInterfaceMonitor:
         # Attribute to store the latest time stamp
         self.latest_time_stamp = None
 
-    def get_moving_average_gps(self, router_id, interface_id, locator_addr):
-        # Retrieve the moving average gps for a specific router interface and locator address
+    def get_moving_average(self, router_id, interface_id, locator_addr):
+        # Retrieve the moving average for a specific router interface and locator address
         key = (router_id, interface_id, locator_addr)
         if key in self.data_store:
-            return self.data_store[key]['moving_average_gps']
+            return self.data_store[key]['moving_average']
         else:
             return None
 
-    # TODO Figure out how to use the time_stamp
+
     def update_data(self, router_id, interface_id, locator_addr, new_byte_count, time_stamp):
         good_data = True
         # Ensure the router_id entry exists
@@ -51,7 +51,7 @@ class RouterInterfaceMonitor:
         if locator_addr not in self.data_store[router_id][interface_id]:
             self.data_store[router_id][interface_id][locator_addr] = {
                 'data_points': deque(maxlen=5),  # FIFO queue with a max size of 5
-                'moving_average_gbps': 0,
+                'moving_average': 0,
                 'time_stamp': time_stamp
             }
 
@@ -83,15 +83,14 @@ class RouterInterfaceMonitor:
             total_bytes = sum(diff[1] for diff in differences)
             total_time = sum(diff[0] for diff in differences)
             if total_time > 0:
-                interface_data['moving_average_gbps'] = int(
+                interface_data['moving_average'] = int(
                     ((total_bytes * 8) / total_time) / 10 ** 6) # Convert bytes to bits and compute rate
             else:
-                interface_data['moving_average_gbps'] = 0
+                interface_data['moving_average'] = 0
         # logging.info(
-        #     f"Router: {router_id} Interface: {interface_id}, Locator: {locator_addr}  Moving Average: {interface_data['moving_average_gbps']} Gbps")
-        # Remove outdated entries older than 150 seconds
-        # self._remove_outdated_entries(150)
-        return good_data, interface_data['moving_average_gbps']
+        #     f"Router: {router_id} Interface: {interface_id}, Locator: {locator_addr}  Moving Average: {interface_data['moving_average']} Mbps")
+
+        return good_data, interface_data['moving_average']
 
     #TODO this does not work to purge out-dated entries, need to debug
     def remove_outdated_entries(self, time_delta):
@@ -130,8 +129,14 @@ class RouterInterfaceMonitor:
                 entry = {
                     'locator_addr': locator_addr,
                     'interface_id': interface_id,
-                    'moving_average_gbps': data['moving_average_gbps'],
+                    'moving_average': data['moving_average'],
                     'time_stamp': data['time_stamp']
                 }
                 entries.append(entry)
         return entries
+
+    def del_all_data(self):
+        """
+        Reset the 'locator_intf' dictionary.
+        """
+        self.data_store = {}

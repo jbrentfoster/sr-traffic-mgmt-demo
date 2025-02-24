@@ -17,21 +17,15 @@ or implied.
 
 """
 import asyncio
-# import urllib.parse
-# from aiokafka import AIOKafkaConsumer
 import json
 import logging
-# from collections import deque
-import threading
 from python import router
 from python import router_interface_monitor
 from python import traffic_matrix
 from python import utils
 from python import crosswork_planning
-from datetime import datetime
 import dateutil
 
-# TODO add time-stamp to logging
 # Globals
 monitor = router_interface_monitor.RouterInterfaceMonitor()
 router_dict = {}
@@ -55,7 +49,7 @@ async def traffic_matrix_updater(websockets):
     global monitor
 
     # Define the base URL and parameters
-    influx_url = 'http://10.135.7.178:8086/query'
+    influx_query_url = 'http://10.135.7.178:8086/query'
     influx_write_url = 'http://10.135.7.178:8086/write?db=telegraf'
     with open('templates/query_template.txt', 'r') as file:
         query_template = file.read().strip()
@@ -67,6 +61,7 @@ async def traffic_matrix_updater(websockets):
         bad_data_count = 0
         logging.info("Traffic matrix updater thread is running...")
         await asyncio.sleep(30)
+        # query the influxdb for locator counters
         for router, attributes in router_dict.items():
             query_formatted = query_template.format(hostname=router)
             params = {
@@ -74,7 +69,7 @@ async def traffic_matrix_updater(websockets):
                 'db': 'telegraf',
                 'q': query_formatted
             }
-            response = await utils.rest_get_tornado_httpclient(influx_url, data=params)
+            response = await utils.rest_get_tornado_httpclient(influx_query_url, data=params)
             response_dict = json.loads(response)
             try:
                 for data_point in response_dict['results'][0]['series']:
@@ -84,6 +79,7 @@ async def traffic_matrix_updater(websockets):
                     if not good_data:
                         bad_data_count += 1
                         good_collection_count = 0
+                        monitor.del_all_data()
                         logging.info("Bad data detected, will not process traffic matrix.")
             except Exception as err:
                 logging.info(f"Could not get data for {router}")
@@ -93,7 +89,7 @@ async def traffic_matrix_updater(websockets):
             logging.info(f"Good collection cycles completed: {good_collection_count}")
 
         # if multiple good collections, compute the traffic matrix
-        if good_collection_count > 3:
+        if good_collection_count >= 3:
             # compute new trafic matrix
             local_traffic_matrix = traffic_matrix.TrafficMatrix()
             for locator_addr in monitor.get_unique_locator_addrs():
@@ -122,7 +118,8 @@ async def traffic_matrix_updater(websockets):
             # write to InfluxDB
             for router, router_attr in intf_data.items():
                 for intf, intf_attr in router_attr.items():
-                    write_data = write_template.format(router_id=router, intf_name=intf, wc_traffic=intf_attr['worst-case-traffic'])
+                    write_data = write_template.format(router_id=router, intf_name=intf,
+                                                       wc_traffic=intf_attr['worst-case-traffic'])
                     await utils.rest_post_tornado_httpclient(influx_write_url, data=write_data)
 
             # clear interface data from all routers
@@ -155,18 +152,13 @@ def process_influx_locator(data):
                 output_bytes = data['values'][0][1]
                 locator_addr = data['tags']['ipv6_address']
                 time_stamp = rfc3339_to_epoch(data['values'][0][0])
-                good_data, moving_average = monitor.update_data(router_id, if_name, locator_addr, output_bytes, time_stamp)
+                good_data, moving_average = monitor.update_data(router_id, if_name, locator_addr, output_bytes,
+                                                                time_stamp)
                 if good_data:
-                    router_dict[router_id].add_intf_locator(if_name,locator_addr,moving_average, time_stamp)
-                # entries = monitor.get_entries_by_router_id(router_id)
-                # for entry in entries:
-                #     router_dict[router_id].add_intf_locator(entry['interface_id'], entry['locator_addr'],
-                #                                             entry['moving_average_gbps'], entry['time_stamp'])
+                    router_dict[router_id].add_intf_locator(if_name, locator_addr, moving_average, time_stamp)
             except Exception as err:
                 logging.info(f"Exception processing influx data for {router}")
-                pass
     except Exception as err:
-        pass
         logging.info("Invalid message from influx.")
     return good_data
 
@@ -184,8 +176,8 @@ def update_traffic_matrix(locator_addr):
                                                                                        locator_addr)[0]
                 neighbors_total += neighbor_total
             external_traffic = router_total - neighbors_total
-            if external_traffic > 500:  # Ignore anything less than 500 Mbps
-                logging.info(f"Router {router_id} is the source of {external_traffic} Gbps to locator {locator_addr}.")
+            if external_traffic >= 1000:  # Ignore anything less than 1000 Mbps
+                logging.info(f"Router {router_id} is the source of {external_traffic} Mbps to locator {locator_addr}.")
                 dest_router_id = get_router_id_from_locator(locator_addr)
                 local_traffic_matrix.add_traffic_entry(router_id, dest_router_id, locator_addr, external_traffic)
 

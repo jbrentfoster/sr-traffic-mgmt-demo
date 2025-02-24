@@ -59,8 +59,8 @@ async def rest_post_tornado_httpclient(url, user=None, password=None, data=None)
         url=url,
         method="POST",
         body=data,
-        # auth_username=user,
-        # auth_password=password,
+        auth_username=user,
+        auth_password=password,
         headers=httputil.HTTPHeaders({"content-type": "application/json", "accept": "application/json"})
     )
 
@@ -78,7 +78,6 @@ async def rest_post_tornado_httpclient(url, user=None, password=None, data=None)
         return error_message
 
 
-# TODO: switch this to tornado
 def rest_post_json(baseURL, uri, thejson, user, password):
     proxies = {
         "http": None,
