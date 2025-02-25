@@ -171,14 +171,12 @@ def main():
 
     # webbrowser.open("http://localhost:%d/" % args.port, new=2)
 
-
+    signal.signal(signal.SIGTERM, signal_handler)
     try:
         # Start the thread for the telemetry processing
         global thread
         thread = threading.Thread(target=run_traffic_matrix_in_thread)
         thread.start()
-
-        signal.signal(signal.SIGTERM, signal_handler)
 
         logging.info("Starting IOLoop for webserver...")
         tornado.ioloop.IOLoop.current().start()
@@ -188,9 +186,10 @@ def main():
 
 def signal_handler(sig, frame):
     global thread
-    print('Exiting gracefully...')
+    logging.info('Exiting gracefully...')
     # Perform cleanup actions here
     thread.join()
+    logging.info('Stopping webserver...')
     tornado.ioloop.IOLoop.current().stop()
     sys.exit(0)
 
