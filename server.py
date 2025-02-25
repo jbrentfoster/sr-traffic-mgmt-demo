@@ -34,6 +34,7 @@ import logging
 from distutils.dir_util import remove_tree
 from distutils.dir_util import mkpath
 import asyncio
+import signal
 
 # global variables...
 logging_level = 'INFO'
@@ -44,6 +45,7 @@ KAFKA_TOPIC = 'telegraf'
 KAFKA_BOOTSTRAP_SERVER = '10.135.7.105:9092'
 telemetry_thread = None
 telemetry_encoding_path = "Cisco-IOS-XR-pfi-im-cmd-oper:interfaces/interface-xr/interface"
+thread = None
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -172,19 +174,22 @@ def main():
     # thread = threading.Thread(target=run_consumer_in_thread)
     # thread.start()
 
-    try:
-        # Start the thread for the telemetry processing
-        thread = threading.Thread(target=run_traffic_matrix_in_thread)
-        thread.start()
+    signal.signal(signal.SIGTERM, signal_handler)
 
-        logging.info("Starting IOLoop for webserver...")
-        # tornado.ioloop.IOLoop.instance().start()
-        tornado.ioloop.IOLoop.current().start()
-    except KeyboardInterrupt:
-        logging.info("Stopping the threads...")
-        thread.stop()
-        thread.join()
-        tornado.ioloop.IOLoop.current().stop()
+
+    # Start the thread for the telemetry processing
+    global thread
+    thread = threading.Thread(target=run_traffic_matrix_in_thread)
+    thread.start()
+
+    logging.info("Starting IOLoop for webserver...")
+    # tornado.ioloop.IOLoop.instance().start()
+    tornado.ioloop.IOLoop.current().start()
+
+    logging.info("Stopping the threads...")
+    thread.stop()
+    thread.join()
+    tornado.ioloop.IOLoop.current().stop()
 
 
 # def run_consumer_in_thread():
@@ -194,6 +199,16 @@ def main():
 #
 #     # Run the consumer in the asyncio event loop
 #     loop.run_until_complete(telemetry.consume(open_websockets))
+
+def signal_handler(sig, frame):
+    global thread
+    print('Exiting gracefully...')
+    # Perform cleanup actions here
+    thread.stop()
+    thread.join()
+    tornado.ioloop.IOLoop.current().stop()
+    sys.exit(0)
+
 
 def run_traffic_matrix_in_thread():
     # Create a new asyncio event loop for this thread
