@@ -51,10 +51,10 @@ import random
 host = "10.135.7.127"
 port = "30744"
 protocol = 'ssl'
-
+conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
 
 def run_simulation(traffic_data):
-    conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
+    # conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
     with open('plan_files/lab_topology_SR_FlexAlgo.pln', 'rb') as f:
         plan = conn.getPlanManager().newPlanFromBytes(f.read())
         f.close()
@@ -106,9 +106,7 @@ def run_simulation(traffic_data):
 
 
 def main():
-    with open('jsongets/traffic_matrix.json', 'r') as file:
-        traffic_data = json.load(file)
-
+    net = plan.getNetwork()
     selected_circuits = net.getCircuitManager().getAllCircuits()
 
     # Now that the circuits are chosen, create a dictionary of dictionaries using
