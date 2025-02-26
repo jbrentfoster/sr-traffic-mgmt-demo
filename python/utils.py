@@ -28,6 +28,7 @@ http_client = httpclient.AsyncHTTPClient()
 
 async def rest_get_tornado_httpclient(url, user=None, password=None, data=None):
     """ Perform an async GET request with Tornado's HTTPClient. """
+    response = None
 
     # Encode params if provided
     if data:
@@ -57,6 +58,7 @@ async def rest_get_tornado_httpclient(url, user=None, password=None, data=None):
 
 async def rest_post_tornado_httpclient(url, user=None, password=None, data=None):
     """ Perform an async POST request with Tornado's HTTPClient. """
+    response = None
 
     http_request = httpclient.HTTPRequest(
         url=url,
