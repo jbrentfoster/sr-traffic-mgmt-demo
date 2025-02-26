@@ -41,7 +41,8 @@ import socket
 # global variables...
 logging_level = 'INFO'
 initial_url = "https://jsonplaceholder.typicode.com/posts"
-open_websockets = []
+# open_websockets = []
+open_websockets = set()  # Use a set instead of a list to prevent duplicates
 # application = tornado.web.Application
 KAFKA_TOPIC = 'telegraf'
 KAFKA_BOOTSTRAP_SERVER = '10.135.7.105:9092'
@@ -95,35 +96,75 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
     def open(self):
         logging.info("WebSocket opened")
-        open_websockets.append(self)
+        open_websockets.add(self)  # Add WebSocket instance to the set
 
     def send_message(self, message):
-        # logging.info(f"Sending message on websocket: {message}")
-        self.write_message(message)
+        if self.ws_connection and self.ws_connection.stream and not self.ws_connection.stream.closed():
+            self.write_message(message)
+        else:
+            logging.warning("Attempted to send a message to a closed WebSocket")
 
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
         json_rpc = json.loads(message)
-        logging.info("Websocket received message: " + json.dumps(json_rpc))
+        logging.info("WebSocket received message: " + json.dumps(json_rpc))
 
         try:
-            result = getattr(methods,
-                             json_rpc["method"])(**json_rpc["params"])
+            result = getattr(methods, json_rpc["method"])(**json_rpc["params"])
             error = None
         except Exception as err:
-            # Errors are handled by enabling the `error` flag and returning a
-            # stack trace. The client can do with it what it will.
             result = traceback.format_exc()
             error = 1
 
-        json_rpc_response = json.dumps({"response": result, "error": error},
-                                       separators=(",", ":"))
-        logging.info("Websocket replied with message: " + json_rpc_response)
-        self.write_message(json_rpc_response)
+        json_rpc_response = json.dumps({"response": result, "error": error}, separators=(",", ":"))
+        logging.info("WebSocket replied with message: " + json_rpc_response)
+
+        self.send_message(json_rpc_response)  # Use the safer send_message method
 
     def on_close(self):
-        open_websockets.remove(self)
+        if self in open_websockets:
+            open_websockets.remove(self)  # Ensure the WebSocket is removed properly
         logging.info("WebSocket closed!")
+
+    def check_origin(self, origin):
+        """Allow connections from any origin (if necessary)."""
+        return True
+
+
+# class WebSocket(tornado.websocket.WebSocketHandler):
+#
+#     def open(self):
+#         logging.info("WebSocket opened")
+#         open_websockets.append(self)
+#
+#     def send_message(self, message):
+#         # logging.info(f"Sending message on websocket: {message}")
+#         self.write_message(message)
+#
+#     def on_message(self, message):
+#         """Evaluates the function pointed to by json-rpc."""
+#         json_rpc = json.loads(message)
+#         logging.info("Websocket received message: " + json.dumps(json_rpc))
+#
+#         try:
+#             result = getattr(methods,
+#                              json_rpc["method"])(**json_rpc["params"])
+#             error = None
+#         except Exception as err:
+#             # Errors are handled by enabling the `error` flag and returning a
+#             # stack trace. The client can do with it what it will.
+#             result = traceback.format_exc()
+#             error = 1
+#
+#         json_rpc_response = json.dumps({"response": result, "error": error},
+#                                        separators=(",", ":"))
+#         logging.info("Websocket replied with message: " + json_rpc_response)
+#         self.write_message(json_rpc_response)
+#
+#     def on_close(self):
+#         open_websockets.remove(self)
+#         super().on_close()
+#         logging.info("WebSocket closed!")
 
 
 def main():

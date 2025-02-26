@@ -70,7 +70,10 @@ async def traffic_matrix_updater(websockets):
                 'q': query_formatted
             }
             response = await utils.rest_get_tornado_httpclient(influx_query_url, data=params)
-            response_dict = json.loads(response)
+            try:
+                response_dict = json.loads(response)
+            except Exception as err:
+                pass
             try:
                 for data_point in response_dict['results'][0]['series']:
                     # logging.info(

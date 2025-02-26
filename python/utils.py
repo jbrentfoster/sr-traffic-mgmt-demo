@@ -17,9 +17,6 @@ or implied.
 
 """
 
-import requests
-import json
-import python.errors
 import logging
 from tornado import httpclient
 from tornado import httputil
@@ -78,27 +75,3 @@ async def rest_post_tornado_httpclient(url, user=None, password=None, data=None)
     except Exception as err:
         logging.error(f"Error: {err}")
         return f"Error: {err}"
-
-
-def rest_post_json(baseURL, uri, thejson, user, password):
-    proxies = {
-        "http": None,
-        "https": None,
-    }
-    appformat = 'application/json'
-    headers = {'content-type': appformat, 'accept': appformat}
-    restURI = baseURL + uri
-    logging.info(restURI)
-    try:
-        r = requests.post(restURI, data=thejson, headers=headers, proxies=proxies, auth=(user, password),
-                          verify=False)
-        # print "HTTP response code is: " + str(r.status_code)
-        if r.status_code == 200:
-            return json.dumps(r.json(), indent=2)
-        else:
-            raise errors.InputError(restURI, "HTTP status code: " + str(r.status_code))
-    except errors.InputError as err:
-        logging.error("Exception raised: " + str(type(err)))
-        logging.error(err.expression)
-        logging.error(err.message)
-        return
