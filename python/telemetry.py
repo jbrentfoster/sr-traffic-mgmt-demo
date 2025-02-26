@@ -135,13 +135,13 @@ async def traffic_matrix_updater(websockets):
                 monitor.remove_outdated_entries(300)
 
 
-def run_in_thread():
-    # Create a new asyncio event loop for this thread
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
-    # Run the consumer in the asyncio event loop
-    loop.run_until_complete(traffic_matrix_updater())
+# def run_in_thread():
+#     # Create a new asyncio event loop for this thread
+#     loop = asyncio.new_event_loop()
+#     asyncio.set_event_loop(loop)
+#
+#     # Run the consumer in the asyncio event loop
+#     loop.run_until_complete(traffic_matrix_updater())
 
 
 def process_influx_locator(data):

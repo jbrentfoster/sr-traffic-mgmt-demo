@@ -207,16 +207,16 @@ def signal_handler(sig, frame):
     global thread
     logging.info('Exiting gracefully...')
 
+    # Stop the worker thread cleanly
+    logging.info("Stopping telemetry thread...")
+    stop_event.set()  # Tell the thread to stop
+    thread.join(timeout=5)  # Ensure it doesn't block indefinitely
+
     # Stop the Tornado event loop
     io_loop = tornado.ioloop.IOLoop.current()
 
     # async_method(ioloop=ioloop, callback=ioloop.stop)
     io_loop.add_callback(io_loop.stop)
-
-    # Stop the worker thread cleanly
-    logging.info("Stopping telemetry thread...")
-    stop_event.set()  # Tell the thread to stop
-    thread.join(timeout=5)  # Ensure it doesn't block indefinitely
 
     logging.info("Stopping webserver...")
     sys.exit(0)
@@ -229,10 +229,11 @@ def run_traffic_matrix_in_thread():
     try:
         while not stop_event.is_set():  # Check stop event before running
             loop.run_until_complete(telemetry.traffic_matrix_updater(open_websockets))
-            asyncio.sleep(1)  # Prevent 100% CPU usage
+            # asyncio.sleep(1)  # Prevent 100% CPU usage
     except asyncio.CancelledError:
         logging.info("Telemetry thread stopped.")
     finally:
+        loop.run_until_complete(loop.shutdown_asyncgens())  # Proper cleanup
         loop.stop()  # Stop event loop before exiting
         loop.close()
 
