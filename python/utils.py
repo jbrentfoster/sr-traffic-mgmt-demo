@@ -25,35 +25,39 @@ from tornado import httpclient
 from tornado import httputil
 from urllib.parse import urlencode
 
+# Reuse a single HTTP client instance
+http_client = httpclient.AsyncHTTPClient()
+
+
 async def rest_get_tornado_httpclient(url, user=None, password=None, data=None):
-    http_client = httpclient.AsyncHTTPClient()
+    """ Perform an async GET request with Tornado's HTTPClient. """
 
     # Encode params if provided
     if data:
         query_string = urlencode(data)
         url = f"{url}?{query_string}"
 
-    http_request = httpclient.HTTPRequest(url)
-    http_request.auth_username = user
-    http_request.auth_password = password
-    headers = httputil.HTTPHeaders({"content-type": "application/json", "accept": "application/json"})
-    http_request.headers = headers
+    http_request = httpclient.HTTPRequest(
+        url=url,
+        auth_username=user,
+        auth_password=password,
+        headers=httputil.HTTPHeaders({
+            "content-type": "application/json",
+            "accept": "application/json"
+        })
+    )
+
     try:
         response = await http_client.fetch(http_request)
-        response_string = str(response.body, 'utf-8')
-        if response.code == 200:
-            return response_string
-        else:
-            error_message = "Failed HTTP response...code: " + str(response.code)
-            return error_message
+        return response.body.decode(
+            'utf-8') if response.code == 200 else f"Failed HTTP response...code: {response.code}"
     except Exception as err:
-        error_message = "Error: %s" % err
-        logging.error(error_message)
-        return error_message
+        logging.error(f"Error: {err}")
+        return f"Error: {err}"
 
 
 async def rest_post_tornado_httpclient(url, user=None, password=None, data=None):
-    http_client = httpclient.AsyncHTTPClient()
+    """ Perform an async POST request with Tornado's HTTPClient. """
 
     http_request = httpclient.HTTPRequest(
         url=url,
@@ -61,21 +65,19 @@ async def rest_post_tornado_httpclient(url, user=None, password=None, data=None)
         body=data,
         auth_username=user,
         auth_password=password,
-        headers=httputil.HTTPHeaders({"content-type": "application/json", "accept": "application/json"})
+        headers=httputil.HTTPHeaders({
+            "content-type": "application/json",
+            "accept": "application/json"
+        })
     )
 
     try:
         response = await http_client.fetch(http_request)
-        response_string = response.body.decode('utf-8')
-        if response.code in [200, 201, 204]:
-            return response_string
-        else:
-            error_message = f"Failed HTTP response...code: {response.code}"
-            return error_message
+        return response.body.decode('utf-8') if response.code in [200, 201,
+                                                                  204] else f"Failed HTTP response...code: {response.code}"
     except Exception as err:
-        error_message = f"Error: {err}"
-        logging.error(error_message)
-        return error_message
+        logging.error(f"Error: {err}")
+        return f"Error: {err}"
 
 
 def rest_post_json(baseURL, uri, thejson, user, password):
