@@ -49,6 +49,7 @@ KAFKA_BOOTSTRAP_SERVER = '10.135.7.105:9092'
 telemetry_thread = None
 telemetry_encoding_path = "Cisco-IOS-XR-pfi-im-cmd-oper:interfaces/interface-xr/interface"
 thread = None
+stop_event = threading.Event()  # Global event to signal thread shutdown
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -132,42 +133,6 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         return True
 
 
-# class WebSocket(tornado.websocket.WebSocketHandler):
-#
-#     def open(self):
-#         logging.info("WebSocket opened")
-#         open_websockets.append(self)
-#
-#     def send_message(self, message):
-#         # logging.info(f"Sending message on websocket: {message}")
-#         self.write_message(message)
-#
-#     def on_message(self, message):
-#         """Evaluates the function pointed to by json-rpc."""
-#         json_rpc = json.loads(message)
-#         logging.info("Websocket received message: " + json.dumps(json_rpc))
-#
-#         try:
-#             result = getattr(methods,
-#                              json_rpc["method"])(**json_rpc["params"])
-#             error = None
-#         except Exception as err:
-#             # Errors are handled by enabling the `error` flag and returning a
-#             # stack trace. The client can do with it what it will.
-#             result = traceback.format_exc()
-#             error = 1
-#
-#         json_rpc_response = json.dumps({"response": result, "error": error},
-#                                        separators=(",", ":"))
-#         logging.info("Websocket replied with message: " + json_rpc_response)
-#         self.write_message(json_rpc_response)
-#
-#     def on_close(self):
-#         open_websockets.remove(self)
-#         super().on_close()
-#         logging.info("WebSocket closed!")
-
-
 def main():
     # global application
     # Set up logging
@@ -241,20 +206,36 @@ def main():
 def signal_handler(sig, frame):
     global thread
     logging.info('Exiting gracefully...')
-    # Perform cleanup actions here
-    thread.join()
-    logging.info('Stopping webserver...')
-    tornado.ioloop.IOLoop.current().stop()
+
+    # Stop the Tornado event loop
+    io_loop = tornado.ioloop.IOLoop.current()
+
+    # async_method(ioloop=ioloop, callback=ioloop.stop)
+    io_loop.add_callback(io_loop.stop)
+
+    # Stop the worker thread cleanly
+    logging.info("Stopping telemetry thread...")
+    stop_event.set()  # Tell the thread to stop
+    thread.join(timeout=5)  # Ensure it doesn't block indefinitely
+
+    logging.info("Stopping webserver...")
     sys.exit(0)
 
 
 def run_traffic_matrix_in_thread():
-    # Create a new asyncio event loop for this thread
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    # Run the consumer in the asyncio event loop
-    loop.run_until_complete(telemetry.traffic_matrix_updater(open_websockets))
+    try:
+        while not stop_event.is_set():  # Check stop event before running
+            loop.run_until_complete(telemetry.traffic_matrix_updater(open_websockets))
+            asyncio.sleep(1)  # Prevent 100% CPU usage
+    except asyncio.CancelledError:
+        logging.info("Telemetry thread stopped.")
+    finally:
+        loop.stop()  # Stop event loop before exiting
+        loop.close()
+
 
 def send_message_open_ws(message):
     for ws in open_websockets:
