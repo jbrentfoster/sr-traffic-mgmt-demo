@@ -124,6 +124,7 @@ class WebSocket(tornado.websocket.WebSocketHandler):
     def on_close(self):
         if self in open_websockets:
             open_websockets.remove(self)  # Ensure the WebSocket is removed properly
+        self.close()
         logging.info("WebSocket closed!")
 
     def check_origin(self, origin):

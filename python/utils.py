@@ -51,6 +51,8 @@ async def rest_get_tornado_httpclient(url, user=None, password=None, data=None):
     except Exception as err:
         logging.error(f"Error: {err}")
         return f"Error: {err}"
+    finally:
+        del response  # Ensure request is deleted
 
 
 async def rest_post_tornado_httpclient(url, user=None, password=None, data=None):
@@ -75,3 +77,5 @@ async def rest_post_tornado_httpclient(url, user=None, password=None, data=None)
     except Exception as err:
         logging.error(f"Error: {err}")
         return f"Error: {err}"
+    finally:
+        del response  # Ensure request is deleted
