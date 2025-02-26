@@ -36,6 +36,7 @@ from distutils.dir_util import mkpath
 import asyncio
 import signal
 import sys
+import socket
 
 # global variables...
 logging_level = 'INFO'
@@ -167,7 +168,18 @@ def main():
                 ]
 
     application = tornado.web.Application(handlers)
-    application.listen(args.port)
+    # application.listen(args.port)
+
+    # Create a custom server socket with SO_REUSEADDR
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Enable address reuse
+    # server_socket.bind(("0.0.0.0", args.port))
+    server_socket.listen(128)  # Set backlog queue
+
+    # Wrap the socket with a Tornado HTTP server
+    http_server = tornado.httpserver.HTTPServer(application)
+    http_server.add_socket(server_socket)
+    http_server.listen(args.port)
 
     # webbrowser.open("http://localhost:%d/" % args.port, new=2)
 
