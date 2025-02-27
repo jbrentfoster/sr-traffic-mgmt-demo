@@ -221,7 +221,7 @@ def signal_handler(sig, frame):
     logging.info("Stopping webserver...")
     sys.exit(0)
 
-
+# TODO figure out systemd shutdown issue
 def run_traffic_matrix_in_thread():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)

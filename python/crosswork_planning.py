@@ -48,13 +48,14 @@ import Ice
 import json
 import random
 
+
 host = "10.135.7.127"
 port = "30744"
 protocol = 'ssl'
 conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
 
 def run_simulation(traffic_data):
-    # conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
+    global conn
     with open('plan_files/lab_topology_SR_FlexAlgo.pln', 'rb') as f:
         plan = conn.getPlanManager().newPlanFromBytes(f.read())
         f.close()
@@ -90,8 +91,13 @@ def run_simulation(traffic_data):
     for circuit_key, circuit in selected_circuits.items():
         circuit_data[circuit_key] = {}
         circuit_data[circuit_key]['circuit'] = circuit
+    try:
+        interface_data = get_util_interfaces(conn, plan, circuit_data)
+    except Ice.ConnectionLostException  as err:
+        logging.error(err)
+        logging.info("Creating new Crosswork connection...")
+        conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, port, protocol)
 
-    interface_data = get_util_interfaces(conn, plan, circuit_data)
     logging.info("Simulation analysis completed.")
 
     try:
