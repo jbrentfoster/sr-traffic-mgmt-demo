@@ -9,3 +9,18 @@ body {
 .form-group {
   padding: 5px;
 }
+table {
+    border-collapse: separate;  /* Enables spacing between cells */
+    border-spacing: 8px;        /* Adjust this value to control spacing */
+    width: 100%;                /* Make table take full width */
+}
+th, td {
+    padding: 10px;              /* Adds space inside each cell */
+    border: 1px solid #ddd;     /* Optional: Adds a border for better visibility */
+    text-align: left;           /* Align text to the left */
+}
+thead tr {
+    background-color: #add8e6; /* Light blue color */
+    color: #000; /* Ensures text is readable */
+    font-weight: bold;
+}

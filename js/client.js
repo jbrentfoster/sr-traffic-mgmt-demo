@@ -16,30 +16,30 @@
  * or implied.
  */
 
- /*
- * Contains all custom javascript code to run the web client.
- * Incorporates websockets and AJAX
- */
+/*
+* Contains all custom javascript code to run the web client.
+* Incorporates websockets and AJAX
+*/
 
- $(document).ready(function() {
+$(document).ready(function () {
     console.log("Document ready!");
- });
+});
 
 
 //jQuery extended (custom) functions defined...
 jQuery.fn.extend({
-    cleanJSON: function(the_json) {
+    cleanJSON: function (the_json) {
         // preserve newlines, etc - use valid JSON
         var s = the_json.replace(/\\n/g, "\\n")
-               .replace(/\\'/g, "\\'")
-               .replace(/\\"/g, '\\"')
-               .replace(/\\&/g, "\\&")
-               .replace(/\\r/g, "\\r")
-               .replace(/\\t/g, "\\t")
-               .replace(/\\b/g, "\\b")
-               .replace(/\\f/g, "\\f");
+            .replace(/\\'/g, "\\'")
+            .replace(/\\"/g, '\\"')
+            .replace(/\\&/g, "\\&")
+            .replace(/\\r/g, "\\r")
+            .replace(/\\t/g, "\\t")
+            .replace(/\\b/g, "\\b")
+            .replace(/\\f/g, "\\f");
         // remove non-printable and other non-valid JSON chars
-        s = s.replace(/[\u0000-\u0019]+/g,"");
+        s = s.replace(/[\u0000-\u0019]+/g, "");
         return s;
     },
 });
@@ -63,8 +63,7 @@ var client = {
             var data_json = JSON.parse($().cleanJSON(messageEvent.data));
             if (data_json.target === 'interface') {
                 client.buildInterfaceTable(data_json.data);
-            }
-            else if (data_json.target === 'traffic') {
+            } else if (data_json.target === 'traffic') {
                 client.buildTrafficMatrixTable(data_json.data);
             }
             console.log(messageEvent.data);
@@ -72,11 +71,11 @@ var client = {
         return this.socket;
     },
 
-    waitForSocketConnection: function(socket, callback) {
+    waitForSocketConnection: function (socket, callback) {
         setTimeout(function () {
             if (socket.readyState === 1) {
                 console.log("Connection is made");
-                if(callback != null){
+                if (callback != null) {
                     callback();
                 }
                 return;
@@ -88,12 +87,14 @@ var client = {
         }, 5); // wait 5 milisecond for the connection...
     },
 
-    sendSocketMessage: function(message) {
-         this.socket.send(JSON.stringify({method: "process_ws_message", params: {message: message}}));
+    sendSocketMessage: function (message) {
+        this.socket.send(JSON.stringify({method: "process_ws_message", params: {message: message}}));
     },
 
     buildTrafficMatrixTable: function (traffic_data) {
         const tbody = document.querySelector("#traffic-table tbody");
+        const prevTrafficRates = new Map(); // Store previous traffic rates
+
         tbody.innerHTML = ""; // Clear existing rows
 
         // Sort the data by the first column (source_router)
@@ -105,8 +106,29 @@ var client = {
 
         traffic_data.forEach(row => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${row.source_router}</td><td>${row.dest_router}</td><td>${row.locator_addr}</td><td>${row.traffic_rate}</td>`;
+            const lastCellValue = row.traffic_rate; // Last cell in the row
+
+            tr.innerHTML = `<td>${row.source_router}</td>
+                        <td>${row.dest_router}</td>
+                        <td>${row.locator_addr}</td>
+                        <td class="traffic-cell">${lastCellValue}</td>`;
+
+            // Append row first to ensure DOM is updated
             tbody.appendChild(tr);
+
+            const lastCell = tr.querySelector(".traffic-cell");
+            const key = `${row.source_router}-${row.dest_router}`; // Unique key for tracking
+
+            if (prevTrafficRates.has(key) && prevTrafficRates.get(key) !== lastCellValue) {
+                // Value changed, highlight the cell
+                lastCell.style.backgroundColor = "lightgreen";
+                setTimeout(() => {
+                    lastCell.style.backgroundColor = ""; // Reset after 1 second
+                }, 2000);
+            }
+
+            // Update stored value for next comparison
+            prevTrafficRates.set(key, lastCellValue);
         });
 
         // Update the timestamp
