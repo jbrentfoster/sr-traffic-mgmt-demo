@@ -100,8 +100,18 @@ def run_simulation(traffic_data):
 
     logging.info("Simulation analysis completed.")
 
+
+    node_manager = plan.getNetwork().getNodeManager()
+    node_map = node_manager.getAllNodes()
+    node_coordinates = {}
+    for node_key, node in node_map.items():
+        latitude = node.getLatitude()
+        longitude = node.getLongitude()
+        node_coordinates[node_key] = (latitude, longitude)
+
     try:
-        serialized_bytes = plan.serializeToBytesForVersion(PlanFormat.PlnFile, '7.5')
+        # serialized_bytes = plan.serializeToBytesForVersion(PlanFormat.PlnFile, '7.5')
+        serialized_bytes = plan.serializeToBytes(PlanFormat.PlnFile)
         with open("plan_files/plan_out.pln", "wb") as file:
             file.write(serialized_bytes)
         logging.info("Serialized plan file to bytes.")
@@ -109,39 +119,6 @@ def run_simulation(traffic_data):
         logging.error("Could not save the plan file to file system!")
 
     return interface_data
-
-
-def main():
-    net = plan.getNetwork()
-    selected_circuits = net.getCircuitManager().getAllCircuits()
-
-    # Now that the circuits are chosen, create a dictionary of dictionaries using
-    # the circuitKeys as the key values
-    circuit_data = {}
-    for circuit_key, circuit in selected_circuits.items():
-        circuit_data[circuit_key] = {}
-        circuit_data[circuit_key]['circuit'] = circuit
-
-    sim_circuit_data = get_simulated_circuits(conn, plan, circuit_data)
-
-    node_key_list = node_manager.getAllNodeKeys()
-
-    all_nodes_circ_data = {}
-    for node_key in node_key_list:
-        node_name = node_key.name
-        node_circ_data = {'locator': node_name.split('-')[-1]}
-        node_neighbors = []
-        for circ_key, circ in sim_circuit_data.items():
-            if circ_key.interfaceAKey.sourceKey.name == node_name or circ_key.interfaceBKey.sourceKey.name == node_name:
-                if circ_key.interfaceAKey.sourceKey.name != node_name:
-                    node_neighbors.append({'hostname': circ_key.interfaceAKey.sourceKey.name, 'intf_name': 'foo'})
-                elif circ_key.interfaceBKey.sourceKey.name != node_name:
-                    node_neighbors.append({'hostname': circ_key.interfaceBKey.sourceKey.name, 'intf_name': 'bar'})
-            node_circ_data['neighbors'] = node_neighbors
-
-        all_nodes_circ_data[node_name] = node_circ_data
-
-    print(json.dumps(all_nodes_circ_data, indent=2, sort_keys=True))
 
 
 def new_sr_lsp(plan, src_node, dest_node, dest_sid):
@@ -229,42 +206,6 @@ def new_demand_for_LSP(id, src, dest, lspName, demandName, val):
     dmdTrafficMgr.setGrowthPercent(dmdTraffKey, 10.0)
 
     return new_demand
-
-
-def get_simulated_circuits(conn, plan, circuit_data):
-    '''
-        Attaches simulated traffic records to circuit_data dictionary
-    '''
-    # To get steady state TrafficSim / UtilSim statistics, we need to build a Simulation using the RPC API
-    # First, build a RouteSimulation with no FailureScenario defined.
-    # Second, build TrafficSimulation using the RouteSimulation.
-    # Third, use the TrafficSimuation and the list of interfaces we built earlier, to ask for Simulated
-    # traffic statistics.
-
-    sim = conn.getSimulationManager()
-    r_sim = sim.newRouteSimulation(plan, FailureScenarioRecord())
-    trf_sim = sim.newTrafficSimulation(r_sim, plan.getNetwork().getTrafficLevelManager().getTrafficLevel(
-        TrafficLevelKey(name='Default')), None)
-
-    for circuit in circuit_data.keys():
-        # Here we are asking the API to tell us
-        # how much traffic is simulated on each of side of the circuit
-        simulated_traff_map = trf_sim.getInterfacesSimulatedTrafficRecords(
-            [circuit.interfaceAKey, circuit.interfaceBKey])
-
-        # Because our report is about highly utilized circuits and not interfaces, we don't care if the A size is less
-        # than the B size or vice versa, so here we ignore the lesser of the two returned values.
-        last_util_sim = -1
-        for interface_key, int_sim_traff_record in simulated_traff_map.items():
-            if int_sim_traff_record != Ice.Unset:
-                if int_sim_traff_record.utilSim >= last_util_sim:
-                    last_util_sim = int_sim_traff_record.utilSim
-                    circuit_data[circuit]['traff_map'] = int_sim_traff_record
-                    if interface_key == circuit.interfaceAKey:
-                        circuit_data[circuit]['direction'] = 'A -> B'
-                    else:
-                        circuit_data[circuit]['direction'] = 'B -> A'
-    return circuit_data
 
 
 def get_util_interfaces(conn, plan, circuit_data):
