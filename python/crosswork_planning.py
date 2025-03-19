@@ -113,8 +113,8 @@ def run_simulation(traffic_data):
         node_coordinates[node_key] = (latitude, longitude)
 
     try:
-        # serialized_bytes = plan.serializeToBytesForVersion(PlanFormat.PlnFile, '7.5')
-        serialized_bytes = plan.serializeToBytes(PlanFormat.PlnFile)
+        serialized_bytes = plan.serializeToBytesForVersion(PlanFormat.PlnFile, '7.5')
+        # serialized_bytes = plan.serializeToBytes(PlanFormat.PlnFile)
         with open("plan_files/plan_out.pln", "wb") as file:
             file.write(serialized_bytes)
         logging.info("Serialized plan file to bytes.")
