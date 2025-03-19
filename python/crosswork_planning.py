@@ -72,15 +72,18 @@ def run_simulation(traffic_data):
         nodeB = demand['dest_router']
         bw_A_B = demand['traffic_rate']
         try:
-            demand_name_A_B = nodeA + demand['locator_addr'] + nodeB
-            lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB, dest_sid=sid_map[demand['locator_addr']])
+            # demand_name_A_B = nodeA + demand['locator_addr'] + nodeB
+            demand_name_A_B = f"{nodeA}_{demand['locator_addr']}_{nodeB}"
+            lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB, dest_sid=sid_map[demand['locator_addr']],
+                                  dest_locator_addr=demand['locator_addr'])
             tmp_dmd = new_demand_for_LSP(plan, nodeA, nodeB, lsp_name, demand_name_A_B, bw_A_B)
         except Exception as err:
             if nodeB in aac_map:
                 nodeB_aac = aac_map[nodeB]
-                demand_name_A_B = nodeA + demand['locator_addr'] + nodeB_aac
+                demand_name_A_B = f"{nodeA}_{demand['locator_addr']}_{nodeB_aac}"
                 lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB_aac,
-                                      dest_sid=sid_map[demand['locator_addr']])
+                                      dest_sid=sid_map[demand['locator_addr']],
+                                      dest_locator_addr=demand['locator_addr'])
                 tmp_dmd = new_demand_for_LSP(plan, nodeA, nodeB_aac, lsp_name, demand_name_A_B, bw_A_B)
 
     selected_circuits = net.getCircuitManager().getAllCircuits()
@@ -121,7 +124,7 @@ def run_simulation(traffic_data):
     return interface_data
 
 
-def new_sr_lsp(plan, src_node, dest_node, dest_sid):
+def new_sr_lsp(plan, src_node, dest_node, dest_sid, dest_locator_addr):
     random_num = random.random()
     hop_type = SegmentListHopType.SEGMENTLISTHOPTYPE_NODE
     segment_list_hop_rec = SegmentListHopRecord(
@@ -131,7 +134,7 @@ def new_sr_lsp(plan, src_node, dest_node, dest_sid):
     )
     segment_list_hop_rec_list = []
     segment_list_hop_rec_list.append(segment_list_hop_rec)
-    segment_list_name = f"{src_node}-{dest_node}-{dest_sid}--{random_num}"
+    segment_list_name = f"{src_node}-{dest_node}-{dest_locator_addr}"
     segment_list_rec = SegmentListRecord(
         name=segment_list_name,
         sourceKey=NodeKey(src_node),
@@ -143,7 +146,8 @@ def new_sr_lsp(plan, src_node, dest_node, dest_sid):
     #     segment_list = segment_list_manager.getSegmentList(sl_key)
     # else:
     segment_list = segment_list_manager.newSegmentList(segment_list_rec)
-    lsp_name = f"{src_node}-{dest_node}-{dest_sid}--{random_num}"
+    # lsp_name = f"{src_node}-{dest_node}-{dest_sid}--{random_num}"
+    lsp_name = f"{src_node}-{dest_node}-{dest_locator_addr}"
     lspRec = LSPRecord(
         sourceKey=NodeKey(name=src_node),
         name=lsp_name,
@@ -218,6 +222,8 @@ def get_util_interfaces(conn, plan, circuit_data):
     print("Running new simulation...")
     sim_options = SimAnalysisOptions(
         failures=[SAFailureType.SA_FAILURETYPE_CIRCUITS]
+        # failures=[SAFailureType.SA_FAILURETYPE_CIRCUITS,
+        #           SAFailureType.SA_FAILURETYPE_NODES]
     )
     sim.run(network, sim_options)
     interface_dict = {}

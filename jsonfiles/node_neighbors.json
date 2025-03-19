@@ -117,7 +117,7 @@
       },
       {
         "hostname": "8808-Site2-82",
-        "intf_name": "HundredGigE0/0/0/2.2082"
+        "intf_name": "HundredGigE0/7/0/10/0.2082"
       }
     ]
   },
