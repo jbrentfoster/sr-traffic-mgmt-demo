@@ -33,7 +33,10 @@ local_traffic_matrix = traffic_matrix.TrafficMatrix()
 
 with open('jsonfiles/node_neighbors.json', 'r') as file:
     file_dict = json.load(file)
-
+with open('jsonfiles/sid_map.json', 'r') as file:
+    sid_map = json.load(file)
+with open('jsonfiles/node_name_lookup.json', 'r') as file:
+    node_names = json.load(file)
 # Build the router inventory stored as router_dict
 for router_id, attributes in file_dict.items():
     tmp_router = router.Router(router_id)
@@ -97,7 +100,11 @@ async def traffic_matrix_updater(websockets):
             local_traffic_matrix = traffic_matrix.TrafficMatrix()
             for locator_addr in monitor.get_unique_locator_addrs():
                 update_traffic_matrix(locator_addr)
-            message = {'target': 'traffic', 'data': local_traffic_matrix.get_traffic_entries()}
+            traffic_data = local_traffic_matrix.get_traffic_entries()
+            # for entry in traffic_data:
+            #     entry['source_router'] = node_names[entry['source_router']]
+            #     entry['dest_router'] = node_names[entry['dest_router']]
+            message = {'target': 'traffic', 'data': traffic_data}
             message_json = json.dumps(message, indent=2, sort_keys=True)
             # write to websocket updated traffic matrix
             for ws in websockets:
@@ -133,15 +140,6 @@ async def traffic_matrix_updater(websockets):
             if count % 10 == 0:
                 logging.info("Purging outdated entries in traffic monitor...")
                 monitor.remove_outdated_entries(300)
-
-
-# def run_in_thread():
-#     # Create a new asyncio event loop for this thread
-#     loop = asyncio.new_event_loop()
-#     asyncio.set_event_loop(loop)
-#
-#     # Run the consumer in the asyncio event loop
-#     loop.run_until_complete(traffic_matrix_updater())
 
 
 def process_influx_locator(data):
@@ -181,8 +179,10 @@ def update_traffic_matrix(locator_addr):
             external_traffic = router_total - neighbors_total
             if external_traffic >= 1000:  # Ignore anything less than 1000 Mbps
                 logging.info(f"Router {router_id} is the source of {external_traffic} Mbps to locator {locator_addr}.")
-                dest_router_id = get_router_id_from_locator(locator_addr)
-                local_traffic_matrix.add_traffic_entry(router_id, dest_router_id, locator_addr, external_traffic)
+                dest_router_id = node_names[get_router_id_from_locator(locator_addr)]
+                algo_name = sid_map[locator_addr][1]
+                demand_name = f"{node_names[router_id]}_{dest_router_id}_{algo_name}"
+                local_traffic_matrix.add_traffic_entry(node_names[router_id], dest_router_id, locator_addr, external_traffic, algo_name, demand_name)
 
 
 def rfc3339_to_epoch(rfc3339_string):

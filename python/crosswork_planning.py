@@ -56,7 +56,7 @@ conn = com.cisco.wae.design.ServiceConnectionManager.newServiceConnection(host, 
 
 def run_simulation(traffic_data):
     global conn
-    with open('plan_files/lab_topology_SR_FlexAlgo.pln', 'rb') as f:
+    with open('plan_files/lab_topology_SR_FlexAlgo_renamed.pln', 'rb') as f:
         plan = conn.getPlanManager().newPlanFromBytes(f.read())
         f.close()
     net = plan.getNetwork()
@@ -67,22 +67,23 @@ def run_simulation(traffic_data):
     with open('jsonfiles/sid_map.json', 'r') as file:
         sid_map = json.load(file)
 
+    with open('jsonfiles/node_name_lookup.json', 'r') as file:
+        node_names = json.load(file)
+
     for demand in traffic_data:
         nodeA = demand['source_router']
         nodeB = demand['dest_router']
         bw_A_B = demand['traffic_rate']
+        demand_name_A_B = demand['demand_name']
         try:
-            # demand_name_A_B = nodeA + demand['locator_addr'] + nodeB
-            demand_name_A_B = f"{nodeA}_{demand['locator_addr']}_{nodeB}"
-            lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB, dest_sid=sid_map[demand['locator_addr']],
+            lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB, dest_sid=sid_map[demand['locator_addr']][0],
                                   dest_locator_addr=demand['locator_addr'])
             tmp_dmd = new_demand_for_LSP(plan, nodeA, nodeB, lsp_name, demand_name_A_B, bw_A_B)
         except Exception as err:
             if nodeB in aac_map:
                 nodeB_aac = aac_map[nodeB]
-                demand_name_A_B = f"{nodeA}_{demand['locator_addr']}_{nodeB_aac}"
                 lsp_name = new_sr_lsp(plan, src_node=nodeA, dest_node=nodeB_aac,
-                                      dest_sid=sid_map[demand['locator_addr']],
+                                      dest_sid=sid_map[demand['locator_addr']][0],
                                       dest_locator_addr=demand['locator_addr'])
                 tmp_dmd = new_demand_for_LSP(plan, nodeA, nodeB_aac, lsp_name, demand_name_A_B, bw_A_B)
 

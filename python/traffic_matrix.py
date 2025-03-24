@@ -24,11 +24,13 @@ class TrafficMatrix:
         """
         self.traffic_entries = []
 
-    def add_traffic_entry(self, source_router, dest_router, locator_addr, traffic_rate):
+    def add_traffic_entry(self, source_router, dest_router, locator_addr, traffic_rate, algo_name, demand_name):
         """
         Add a traffic entry to the traffic list. If an entry with the same
         source_router and locator_addr exists, update the traffic rate.
 
+        :param demand_name: The name of the demand
+        :param algo_name: The name of associated FlexAlgo
         :param source_router: The identifier of the source router.
         :param locator_addr: The address of the locator.
         :param traffic_rate: The traffic rate in Gbps (as an integer)
@@ -43,7 +45,9 @@ class TrafficMatrix:
             'source_router': source_router,
             'dest_router': dest_router,
             'locator_addr': locator_addr,
-            'traffic_rate': traffic_rate
+            'traffic_rate': traffic_rate,
+            'algo_name': algo_name,
+            'demand_name': demand_name
         }
         self.traffic_entries.append(new_entry)
 

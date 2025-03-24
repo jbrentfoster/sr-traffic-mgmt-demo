@@ -111,6 +111,7 @@ var client = {
             tr.innerHTML = `<td>${row.source_router}</td>
                         <td>${row.dest_router}</td>
                         <td>${row.locator_addr}</td>
+                        <td>${row.algo_name}</td>
                         <td class="traffic-cell">${lastCellValue}</td>`;
 
             // Append row first to ensure DOM is updated
@@ -137,88 +138,6 @@ var client = {
         updateTimeElement.textContent = `Last updated: ${now.toLocaleString()}`;
     },
 
-    // buildInterfaceTable: function (interface_data) {
-    //     const container = document.querySelector("#tables-container");
-    //     container.innerHTML = "";
-    //
-    //     // Store previous data to compare changes
-    //     if (!this.previousInterfaceData) {
-    //         this.previousInterfaceData = {};
-    //     }
-    //
-    //     for (const router in interface_data) {
-    //         if (interface_data.hasOwnProperty(router)) {
-    //             const table = document.createElement("table");
-    //             table.innerHTML = `
-    //             <thead>
-    //                 <tr>
-    //                     <th colspan="4">Router: ${router}</th>
-    //                 </tr>
-    //                 <tr>
-    //                     <th>Interface</th>
-    //                     <th>Capacity</th>
-    //                     <th>Traffic</th>
-    //                     <th>Utilization</th>
-    //                     <th>Worst Case Traffic</th>
-    //                     <th>Worst Case Utilization</th>
-    //                     <th>Failure Scenario</th>
-    //                 </tr>
-    //             </thead>
-    //             <tbody>
-    //             </tbody>
-    //         `;
-    //             const tableBody = table.querySelector("tbody");
-    //
-    //             let sortedEntries = Object.entries(interface_data[router]).sort((a, b) => b[1]["worst-case-util"] - a[1]["worst-case-util"]);
-    //
-    //             for (const [interface, entry] of sortedEntries) {
-    //                 const previousEntry = this.previousInterfaceData[router] ? this.previousInterfaceData[router][interface] : null;
-    //                 const row = document.createElement("tr");
-    //
-    //                 // Create cells and check for changes
-    //                 Object.keys(entry).forEach(key => {
-    //                     const cell = document.createElement("td");
-    //                     let value = entry[key];
-    //                     if (key === "util" || key === "worst-case-util") {
-    //                         value += '%';
-    //                     }
-    //                     cell.textContent = value;
-    //
-    //                     // If previous entry exists, and the value is different, apply green color
-    //                     if (previousEntry && previousEntry[key] !== entry[key]) {
-    //                         cell.style.backgroundColor = 'lightgreen';
-    //                         setTimeout(() => {
-    //                             cell.style.backgroundColor = '';
-    //                         }, 2000);
-    //                     }
-    //
-    //                     // Apply specific styling for worst-case-util
-    //                     if (key === "worst-case-util") {
-    //                         cell.style.color = entry[key] > 70 ? 'red' : 'black';
-    //                         cell.style.fontWeight = entry[key] > 70 ? 'bold' : 'normal';
-    //                     }
-    //
-    //                     row.appendChild(cell);
-    //                 });
-    //                 tableBody.appendChild(row);
-    //             }
-    //
-    //             // Update previous data
-    //             if (!this.previousInterfaceData[router]) {
-    //                 this.previousInterfaceData[router] = {};
-    //             }
-    //             this.previousInterfaceData[router] = interface_data[router];
-    //
-    //             container.appendChild(table);
-    //             container.appendChild(document.createElement("br"));
-    //         }
-    //     }
-    //
-    //     // Update the timestamp
-    //     const updateTimeElement = document.getElementById("update-time");
-    //     const now = new Date();
-    //     updateTimeElement.textContent = `Last updated: ${now.toLocaleString()}`;
-    // },
     buildInterfaceTable: function (interface_data) {
         const container = document.querySelector("#tables-container");
         container.innerHTML = "";
