@@ -38,6 +38,10 @@
       {
         "hostname": "8808-Site4-94",
         "intf_name": "FourHundredGigE0/0/0/6"
+      },
+      {
+        "hostname": "8808-Site4-94",
+        "intf_name": "FourHundredGigE0/0/0/0"
       }
     ]
   },
@@ -101,6 +105,10 @@
       {
         "hostname": "8201-Site1-91",
         "intf_name": "FourHundredGigE0/0/0/6"
+      },
+      {
+        "hostname": "8201-Site1-91",
+        "intf_name": "FourHundredGigE0/0/0/0"
       },
       {
         "hostname": "ncs57c3-47",
