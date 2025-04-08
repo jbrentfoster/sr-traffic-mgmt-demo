@@ -39,10 +39,6 @@
         "hostname": "8808-Site4-94",
         "intf_name": "Bundle-Ether9194"
       }
-//      {
-//        "hostname": "8808-Site4-94",
-//        "intf_name": "FourHundredGigE0/0/0/0"
-//      }
     ]
   },
   "8808-Site2-82": {
@@ -106,10 +102,6 @@
         "hostname": "8201-Site1-91",
         "intf_name": "Bundle-Ether9194"
       },
-//      {
-//        "hostname": "8201-Site1-91",
-//        "intf_name": "FourHundredGigE0/0/0/0"
-//      },
       {
         "hostname": "ncs57c3-47",
         "intf_name": "FourHundredGigE0/0/3/0"
