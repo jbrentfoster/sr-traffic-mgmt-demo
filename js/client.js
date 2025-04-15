@@ -151,6 +151,7 @@ var client = {
                         </tr>
                         <tr>
                             <th>Interface</th>
+                            <th>Neighbor</th>
                             <th>Capacity</th>
                             <th>Traffic</th>
                             <th>Utilization</th>
@@ -169,6 +170,7 @@ var client = {
                 for (const [interface, entry] of sortedEntries) {
                     const row = `<tr>
                         <td>${interface}</td>
+                        <td>${entry["neighbor"]}</td>
                         <td>${entry["capacity"]}</td>
                         <td>${entry["traffic"]}</td>
                         <td>${entry["util"]}%</td>

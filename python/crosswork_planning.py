@@ -232,6 +232,8 @@ def get_util_interfaces(conn, plan, circuit_data):
     for circuit in circuit_data.keys():
         intf_list = [circuit.interfaceAKey, circuit.interfaceBKey]
         for intf in intf_list:
+            # Set other_intf as the one not currently used
+            other_intf = circuit.interfaceBKey if intf == circuit.interfaceAKey else circuit.interfaceAKey
             wc_result_recs = sim.getInterfaceWCRecords(intf)
             for wc_result in wc_result_recs:
                 if wc_result != Ice.Unset:
@@ -244,6 +246,8 @@ def get_util_interfaces(conn, plan, circuit_data):
                                 'worst-case-util'] = round(wc_result.wcUtil,1)
                             interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
                                 'failure-scenario'] = wc_result.failureScenario
+                            interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
+                                'neighbor'] = other_intf.sourceKey.name
                     except Exception as err:
                         try:
                             interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name] = {
@@ -252,6 +256,8 @@ def get_util_interfaces(conn, plan, circuit_data):
                                 'worst-case-util'] = round(wc_result.wcUtil,1)
                             interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
                                 'failure-scenario'] = wc_result.failureScenario
+                            interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
+                                'neighbor'] = other_intf.sourceKey.name
                         except Exception as err:
                             try:
                                 interface_dict[wc_result.iface.sourceKey.name] = {
@@ -260,6 +266,8 @@ def get_util_interfaces(conn, plan, circuit_data):
                                     'worst-case-util'] = round(wc_result.wcUtil,1)
                                 interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
                                     'failure-scenario'] = wc_result.failureScenario
+                                interface_dict[wc_result.iface.sourceKey.name][wc_result.iface.name][
+                                    'neighbor'] = other_intf.sourceKey.name
                             except Exception as err:
                                 logging.info(f"Could not get worst-case-traffic for {circuit}")
     sim = conn.getSimulationManager()
