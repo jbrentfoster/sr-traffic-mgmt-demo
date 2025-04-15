@@ -1,50 +1,82 @@
 [
     {
-        "source_router": "ncs57c3-37",
-        "dest_router": "ncs57c3-47",
-        "locator_addr": "fcff:10:47::",
-        "traffic_rate": 40146
-    },
-    {
-        "source_router": "ncs57c3-47",
-        "dest_router": "ncs540-50-arches",
-        "locator_addr": "fcff:1c:80::",
-        "traffic_rate": 10146
-    },
-    {
-        "source_router": "ncs57c3-47",
-        "dest_router": "ncs57c3-37",
-        "locator_addr": "fcff:12:37::",
-        "traffic_rate": 20062
-    },
-    {
-        "source_router": "ncs57c3-47",
-        "dest_router": "ncs57c3-37",
+        "source_router": "Charger",
+        "dest_router": "Barracuda",
         "locator_addr": "fcff:10:37::",
-        "traffic_rate": 40131
+        "traffic_rate": 40144,
+        "algo_name": "MAIN",
+        "demand_name": "Charger_Barracuda_MAIN"
     },
     {
-        "source_router": "ncs57c3-47",
-        "dest_router": "ncs57c3-37",
+        "source_router": "Charger",
+        "dest_router": "Barracuda",
+        "locator_addr": "fcff:11:37::",
+        "traffic_rate": 10016,
+        "algo_name": "CHEVY",
+        "demand_name": "Charger_Barracuda_CHEVY"
+    },
+    {
+        "source_router": "Corvette",
+        "dest_router": "Charger",
+        "locator_addr": "fcff:13:47::",
+        "traffic_rate": 301119,
+        "algo_name": "DELAY",
+        "demand_name": "Corvette_Charger_DELAY"
+    },
+    {
+        "source_router": "Barracuda",
+        "dest_router": "Charger",
+        "locator_addr": "fcff:13:47::",
+        "traffic_rate": 10034,
+        "algo_name": "DELAY",
+        "demand_name": "Barracuda_Charger_DELAY"
+    },
+    {
+        "source_router": "Barracuda",
+        "dest_router": "Charger",
+        "locator_addr": "fcff:11:47::",
+        "traffic_rate": 10041,
+        "algo_name": "CHEVY",
+        "demand_name": "Barracuda_Charger_CHEVY"
+    },
+    {
+        "source_router": "Charger",
+        "dest_router": "Barracuda",
         "locator_addr": "fcff:13:37::",
-        "traffic_rate": 10034
+        "traffic_rate": 10051,
+        "algo_name": "DELAY",
+        "demand_name": "Charger_Barracuda_DELAY"
     },
     {
-        "source_router": "ncs57c3-37",
-        "dest_router": "ncs57c3-47",
+        "source_router": "Charger",
+        "dest_router": "Barracuda",
+        "locator_addr": "fcff:12:37::",
+        "traffic_rate": 20060,
+        "algo_name": "FORD",
+        "demand_name": "Charger_Barracuda_FORD"
+    },
+    {
+        "source_router": "Barracuda",
+        "dest_router": "Charger",
+        "locator_addr": "fcff:10:47::",
+        "traffic_rate": 40145,
+        "algo_name": "MAIN",
+        "demand_name": "Barracuda_Charger_MAIN"
+    },
+    {
+        "source_router": "Charger",
+        "dest_router": "Dart",
+        "locator_addr": "fcff:1c:80::",
+        "traffic_rate": 300975,
+        "algo_name": "DELAY",
+        "demand_name": "Charger_Dart_DELAY"
+    },
+    {
+        "source_router": "Barracuda",
+        "dest_router": "Charger",
         "locator_addr": "fcff:12:47::",
-        "traffic_rate": 20076
-    },
-    {
-        "source_router": "8201-Site1-81",
-        "dest_router": "ncs57c3-47",
-        "locator_addr": "fcff:13:47::",
-        "traffic_rate": 4129
-    },
-    {
-        "source_router": "ncs57c3-37",
-        "dest_router": "ncs57c3-47",
-        "locator_addr": "fcff:13:47::",
-        "traffic_rate": 10040
+        "traffic_rate": 20076,
+        "algo_name": "FORD",
+        "demand_name": "Barracuda_Charger_FORD"
     }
 ]

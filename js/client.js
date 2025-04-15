@@ -110,7 +110,6 @@ var client = {
 
             tr.innerHTML = `<td>${row.source_router}</td>
                         <td>${row.dest_router}</td>
-                        <td>${row.locator_addr}</td>
                         <td>${row.algo_name}</td>
                         <td class="traffic-cell">${lastCellValue}</td>`;
 

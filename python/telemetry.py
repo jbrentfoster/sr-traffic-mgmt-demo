@@ -101,10 +101,15 @@ async def traffic_matrix_updater(websockets):
             for locator_addr in monitor.get_unique_locator_addrs():
                 update_traffic_matrix(locator_addr)
             traffic_data = local_traffic_matrix.get_traffic_entries()
+            cleaned_traffic_data = []
+            for record in traffic_data:
+                record_copy = record.copy()
+                record_copy.pop('locator_addr', None)
+                cleaned_traffic_data.append(record_copy)
             # for entry in traffic_data:
             #     entry['source_router'] = node_names[entry['source_router']]
             #     entry['dest_router'] = node_names[entry['dest_router']]
-            message = {'target': 'traffic', 'data': traffic_data}
+            message = {'target': 'traffic', 'data': cleaned_traffic_data}
             message_json = json.dumps(message, indent=2, sort_keys=True)
             # write to websocket updated traffic matrix
             for ws in websockets:
