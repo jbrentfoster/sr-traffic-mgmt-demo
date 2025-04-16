@@ -182,7 +182,7 @@ def update_traffic_matrix(locator_addr):
                                                                                        locator_addr)[0]
                 neighbors_total += neighbor_total
             external_traffic = router_total - neighbors_total
-            if external_traffic >= 1000:  # Ignore anything less than 1000 Mbps
+            if external_traffic >= 5000:  # Ignore anything less than 1000 Mbps
                 logging.info(f"Router {router_id} is the source of {external_traffic} Mbps to locator {locator_addr}.")
                 dest_router_id = node_names[get_router_id_from_locator(locator_addr)]
                 algo_name = sid_map[locator_addr][1]
